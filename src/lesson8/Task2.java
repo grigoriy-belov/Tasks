@@ -35,6 +35,5 @@ public class Task2 {
         } else {
             return false;
         }
-        // asdfasdf
     }
 }
