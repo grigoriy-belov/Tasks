@@ -1,13 +1,16 @@
 package lesson11.Task2;
 
-public class Water implements Substance {
+public class Water extends Substance {
     @Override
     public State heatUp(double t) {
-        return null;
-    }
+        temperature += t;
 
-    @Override
-    public double getTemperature() {
-        return 0;
+        if (temperature < 0) {
+            return State.SOLID;
+        } else if (temperature < 100) {
+            return State.LIQUID;
+        } else {
+            return State.GAS;
+        }
     }
 }

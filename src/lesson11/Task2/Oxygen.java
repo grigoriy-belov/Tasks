@@ -1,13 +1,16 @@
 package lesson11.Task2;
 
-public class Oxygen implements Substance {
+public class Oxygen extends Substance {
     @Override
     public State heatUp(double t) {
-        return null;
-    }
+        temperature += t;
 
-    @Override
-    public double getTemperature() {
-        return 0;
+        if (temperature < -218.9) {
+            return State.SOLID;
+        } else if (temperature < 184) {
+            return State.LIQUID;
+        } else {
+            return State.GAS;
+        }
     }
 }

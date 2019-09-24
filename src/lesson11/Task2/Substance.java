@@ -1,8 +1,11 @@
 package lesson11.Task2;
 
-public interface Substance {
+public abstract class Substance {
+    public double temperature = 20;
 
-    State heatUp (double t);
+    public abstract State heatUp (double t);
 
-    double getTemperature();
+    public double getTemperature() {
+        return temperature;
+    }
 }

@@ -1,13 +1,16 @@
 package lesson11.Task2;
 
-public class Iron implements Substance {
+public class Iron extends Substance {
     @Override
     public State heatUp(double t) {
-        return null;
-    }
+        temperature += t;
 
-    @Override
-    public double getTemperature() {
-        return 0;
+        if (temperature < 1539) {
+            return State.SOLID;
+        } else if (temperature < 2862) {
+            return State.LIQUID;
+        } else {
+            return State.GAS;
+        }
     }
 }
