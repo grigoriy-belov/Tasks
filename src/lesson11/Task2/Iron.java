@@ -5,7 +5,7 @@ public class Iron extends Substance {
     public State heatUp(double t) {
         temperature += t;
 
-        if (temperature < 1539) {
+        if (temperature < 1538) {
             return State.SOLID;
         } else if (temperature < 2862) {
             return State.LIQUID;

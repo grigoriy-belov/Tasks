@@ -5,9 +5,9 @@ public class Oxygen extends Substance {
     public State heatUp(double t) {
         temperature += t;
 
-        if (temperature < -218.9) {
+        if (temperature < -218.8) {
             return State.SOLID;
-        } else if (temperature < 184) {
+        } else if (temperature < 183) {
             return State.LIQUID;
         } else {
             return State.GAS;
