@@ -1,14 +1,13 @@
-package lesson11.Task2;
+package lesson11.task2;
 
-public class Water extends Substance {
-
+public class Oxygen extends Substance {
     @Override
     public State heatUp(double t) {
         temperature += t;
 
-        if (temperature < 0) {
+        if (temperature < -218.8) {
             return State.SOLID;
-        } else if (temperature < 100) {
+        } else if (temperature < 183) {
             return State.LIQUID;
         } else {
             return State.GAS;

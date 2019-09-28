@@ -1,4 +1,4 @@
-package lesson11.Task1;
+package lesson11.task1;
 
 public class ContractStudent extends Student {
     private double contractPrice;

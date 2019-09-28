@@ -1,4 +1,4 @@
-package lesson11.Task2;
+package lesson11.task2;
 
 public abstract class Substance {
     public double temperature = 20;
