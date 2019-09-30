@@ -1,5 +1,8 @@
 package lesson11.task1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Group {
     private Student[] students;
     private int count;
@@ -9,20 +12,22 @@ public class Group {
         count = 0;
     }
 
-    public void printContractStudentsInfo(Group group) {
-        for (int i = 0; i < group.students.length; i++) {
-            if (group.students[i] instanceof ContractStudent) {
-                ContractStudent student = (ContractStudent) students[i];
-                System.out.printf("Name: %1$-10s Contract price: %2$.1f$\n",student.getName(), student.getContractPrice());
-            }
-        }
-    }
-
     public void addStudent(Student student) {
         if (count == students.length) {
             System.out.println("The group is full");
         } else {
             students[count++] = student;
         }
+    }
+
+    public List<ContractStudent> getContractStudents() {
+        List<ContractStudent> contractStudents = new ArrayList<>();
+        for (int i = 0; i < students.length; i++) {
+            if (students[i] instanceof ContractStudent) {
+                ContractStudent student = (ContractStudent) students[i];
+                contractStudents.add(student);
+            }
+        }
+        return contractStudents;
     }
 }
