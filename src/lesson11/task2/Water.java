@@ -1,17 +1,25 @@
 package lesson11.task2;
 
-public class Water extends Substance {
+public class Water extends AbstractSubstance {
+
+    private static final String NAME = "Water";
+
+    private static final double CRYSTALLIZATION_THRESHOLD = 0;
+
+    private static final double EVAPORATION_THRESHOLD = 100;
 
     @Override
-    public State heatUp(double t) {
-        temperature += t;
+    protected double getCrystallizationThreshold() {
+        return CRYSTALLIZATION_THRESHOLD;
+    }
 
-        if (temperature < 0) {
-            return State.SOLID;
-        } else if (temperature < 100) {
-            return State.LIQUID;
-        } else {
-            return State.GAS;
-        }
+    @Override
+    protected double getEvaporationThreshold() {
+        return EVAPORATION_THRESHOLD;
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }

@@ -1,11 +1,13 @@
 package lesson11.task2;
 
-public abstract class Substance {
-    public double temperature = 20;
+public interface Substance {
+    double DEFAULT_TEMPERATURE = 20;
 
-    public abstract State heatUp (double t);
+    double ABSOLUTE_ZERO = -273.15;
 
-    public double getTemperature() {
-        return temperature;
-    }
+    State heatUp(double t);
+
+    double getTemperature();
+
+    String getName();
 }
