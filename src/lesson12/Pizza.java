@@ -1,29 +1,44 @@
-package lesson12.pizza;
+package lesson12;
 
 import lesson12.ingredients.*;
 
-public abstract class Pizza {
-    String name;
-    Dough dough;
-    Sauce sauce;
-    Veggies[] veggies;
-    Cheese cheese;
-    Pepperoni pepperoni;
+public class Pizza {
+    private Menu pizzaType;
+    private Dough dough;
+    private Sauce sauce;
+    private Veggies[] veggies;
+    private Cheese cheese;
+    private Pepperoni pepperoni;
 
-    protected Pizza create(Dough dough, Sauce sauce, Cheese cheese, Veggies[] veggies, Pepperoni pepperoni) {
+    private Pizza(Menu pizzaType, Dough dough, Sauce sauce, Cheese cheese, Veggies[] veggies, Pepperoni pepperoni) {
+        this.pizzaType = pizzaType;
+        this.dough = dough;
+        this.sauce = sauce;
+        this.veggies = veggies;
+        this.cheese = cheese;
+        this.pepperoni = pepperoni;
     }
 
-    public String getName() {
-        return name;
+    private static Pizza create(Menu pizzaType, Dough dough, Sauce sauce, Cheese cheese, Veggies[] veggies, Pepperoni pepperoni) {
+        return new Pizza(pizzaType, dough, sauce, cheese, veggies, pepperoni);
+    }
+
+    public Menu getPizzaType() {
+        return pizzaType;
     }
 
     public static class PizzaBuilder {
+        private Menu pizzaType;
         private Dough dough;
         private Sauce sauce;
         private Veggies[] veggies;
         private Cheese cheese;
         private Pepperoni pepperoni;
 
+        public PizzaBuilder definePizzaType(Menu pizzaType) {
+            this.pizzaType = pizzaType;
+            return this;
+        }
         public PizzaBuilder createDough(Dough dough) {
             this.dough = dough;
             return this;
@@ -45,16 +60,14 @@ public abstract class Pizza {
             return this;
         }
 
-
         Pizza build () {
-            return Pizza.create(dough, sauce, veggies, cheese, pepperoni);
+            return Pizza.create(pizzaType, dough, sauce, cheese, veggies, pepperoni);
         }
     }
 
-    @Override
-    public String toString() {
+    public String getName() {
         StringBuilder result = new StringBuilder();
-        result.append("---- " + name + " ----\n");
+        result.append("---- " + pizzaType + " ----\n");
         if (dough != null) {
             result.append(dough);
             result.append("\n");
@@ -82,5 +95,5 @@ public abstract class Pizza {
         }
         return result.toString();
     }
-    }
 }
+

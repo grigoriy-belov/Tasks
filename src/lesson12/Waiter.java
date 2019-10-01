@@ -1,30 +1,32 @@
 package lesson12;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Waiter {
     private Order order;
-    private Pizza pizza;
+    private List<Pizza> readyOrder;
 
-    class Order {
-        private Menu pizzaType;
+    public Waiter() {
+        this.readyOrder = new ArrayList<>();
+    }
 
-        public Order(Menu pizzaType) {
-            this.pizzaType = pizzaType;
-            Waiter.this.order = this;
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void addItemToReadyOrder(Pizza pizza) {
+        readyOrder.add(pizza);
+    }
+
+
+    public String deliverOrder() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your order is ready. Bon appetite!\n\n");
+        for (Pizza pizza : readyOrder) {
+            sb.append(pizza.getName()).append("\n");
         }
-        public Menu getPizzaType() {
-            return pizzaType;
-        }
-    }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setPizza(Pizza pizza) {
-        this.pizza = pizza;
-    }
-
-    public String deliverDish() {
-        return pizza + " is ready. Bon appetite!";
+        return sb.toString();
     }
 }
