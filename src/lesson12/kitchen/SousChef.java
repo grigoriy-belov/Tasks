@@ -1,4 +1,7 @@
-package lesson12;
+package lesson12.kitchen;
+
+import lesson12.Menu;
+import lesson12.pizza.Pizza;
 
 public class DoughCook implements Cook {
 
@@ -8,10 +11,10 @@ public class DoughCook implements Cook {
         switch (pizza) {
             case CHEESE_PIZZA:
             case PEPPERONI_PIZZA:
-                pizzaBuilder.dough("Thin crust Dough");
+                pizzaBuilder.dough("Thin Crust Dough");
                 break;
             case VEGGIE_PIZZA:
-                pizzaBuilder.dough("Thick Dough");
+                pizzaBuilder.dough("Thick Crust Dough");
                 break;
         }
         return pizzaBuilder;

@@ -1,48 +1,86 @@
-package lesson12;
+package lesson12.pizza;
 
-public class Pizza {
-    private final String dough;
-    private final String sauce;
-    private final String toppings;
+import lesson12.ingredients.*;
 
-    private Pizza(String dough, String sauce, String toppings) {
-        this.dough = dough;
-        this.sauce = sauce;
-        this.toppings = toppings;
+public abstract class Pizza {
+    String name;
+    Dough dough;
+    Sauce sauce;
+    Veggies[] veggies;
+    Cheese cheese;
+    Pepperoni pepperoni;
+
+    protected Pizza create(Dough dough, Sauce sauce, Cheese cheese, Veggies[] veggies, Pepperoni pepperoni) {
     }
 
-    private static Pizza create(String dough, String sauce, String toppings) {
-        return new Pizza(dough, sauce, toppings);
+    public String getName() {
+        return name;
     }
 
-    static class PizzaBuilder {
-        private String dough;
-        private String sauce;
-        private String toppings;
+    public static class PizzaBuilder {
+        private Dough dough;
+        private Sauce sauce;
+        private Veggies[] veggies;
+        private Cheese cheese;
+        private Pepperoni pepperoni;
 
-        PizzaBuilder dough(String sauce) {
-            this.dough = sauce;
+        public PizzaBuilder createDough(Dough dough) {
+            this.dough = dough;
             return this;
         }
-        PizzaBuilder sauce(String dough) {
-            this.sauce = dough;
+        public PizzaBuilder createSauce(Sauce sauce) {
+            this.sauce = sauce;
             return this;
         }
-        PizzaBuilder toppings(String toppings) {
-            this.toppings = toppings;
+        public PizzaBuilder createVeggies(Veggies[] veggies) {
+            this.veggies = veggies;
             return this;
         }
+        public PizzaBuilder createCheese(Cheese cheese) {
+            this.cheese = cheese;
+            return this;
+        }
+        public PizzaBuilder createPepperoni(Pepperoni pepperoni) {
+            this.pepperoni = pepperoni;
+            return this;
+        }
+
 
         Pizza build () {
-            return Pizza.create(dough, sauce, toppings);
+            return Pizza.create(dough, sauce, veggies, cheese, pepperoni);
         }
     }
 
     @Override
     public String toString() {
-        return "Pizza with " +
-                dough + ", " +
-                sauce + ", " +
-                toppings;
+        StringBuilder result = new StringBuilder();
+        result.append("---- " + name + " ----\n");
+        if (dough != null) {
+            result.append(dough);
+            result.append("\n");
+        }
+        if (sauce != null) {
+            result.append(sauce);
+            result.append("\n");
+        }
+        if (cheese != null) {
+            result.append(cheese);
+            result.append("\n");
+        }
+        if (veggies != null) {
+            for (int i = 0; i < veggies.length; i++) {
+                result.append(veggies[i]);
+                if (i < veggies.length-1) {
+                    result.append(", ");
+                }
+            }
+            result.append("\n");
+        }
+        if (pepperoni != null) {
+            result.append(pepperoni);
+            result.append("\n");
+        }
+        return result.toString();
+    }
     }
 }
