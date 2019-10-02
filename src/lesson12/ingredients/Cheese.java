@@ -1,5 +1,5 @@
 package lesson12.ingredients;
 
 public interface Cheese {
-    String toString();
+    String getName();
 }

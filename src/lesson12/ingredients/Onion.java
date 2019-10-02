@@ -2,7 +2,7 @@ package lesson12.ingredients;
 
 public class Onion implements Veggies {
     @Override
-    public String toString() {
+    public String getName() {
         return "Veggies";
     }
 }

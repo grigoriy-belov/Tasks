@@ -69,20 +69,20 @@ public class Pizza {
         StringBuilder result = new StringBuilder();
         result.append("---- " + pizzaType + " ----\n");
         if (dough != null) {
-            result.append(dough);
+            result.append(dough.getName());
             result.append("\n");
         }
         if (sauce != null) {
-            result.append(sauce);
+            result.append(sauce.getName());
             result.append("\n");
         }
         if (cheese != null) {
-            result.append(cheese);
+            result.append(cheese.getName());
             result.append("\n");
         }
         if (veggies != null) {
             for (int i = 0; i < veggies.length; i++) {
-                result.append(veggies[i]);
+                result.append(veggies[i].getName());
                 if (i < veggies.length-1) {
                     result.append(", ");
                 }
@@ -90,7 +90,7 @@ public class Pizza {
             result.append("\n");
         }
         if (pepperoni != null) {
-            result.append(pepperoni);
+            result.append(pepperoni.getName());
             result.append("\n");
         }
         return result.toString();
