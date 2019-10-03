@@ -19,13 +19,6 @@ public class OptionalRocket {
         return value;
     }
 
-    public Rocket getOrThrow(RocketNotFoundException e) throws RocketNotFoundException {
-        if (value == null) {
-            throw e;
-        }
-        return value;
-    }
-
     public boolean isPresent() {
         return value != null;
     }
