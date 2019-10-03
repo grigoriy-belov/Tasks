@@ -17,7 +17,7 @@ public class RocketLaunchApplication {
 
         RocketStorage storage = new UndergroundRocketStorage(bellfastNuke);
 
-        Optional<Rocket> r0 = storage.tryToGet(0);
+        OptionalRocket r0 = storage.tryToGet(0);
 
         LaunchPlatform site000 = new Silo(new Coordinates(0.0, 0.0));
 

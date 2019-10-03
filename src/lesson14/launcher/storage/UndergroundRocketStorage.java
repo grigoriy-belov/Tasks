@@ -1,5 +1,6 @@
 package lesson14.launcher.storage;
 
+import lesson14.launcher.OptionalRocket;
 import lesson14.launcher.Rocket;
 
 import java.util.Optional;
@@ -15,11 +16,11 @@ public class UndergroundRocketStorage implements RocketStorage {
 
     @Override
     public Rocket get(int index) throws RocketNotFoundException {
-        return tryToGet(index).orElseThrow(() -> new RocketNotFoundException(index));
+        return tryToGet(index).getOrThrow(new RocketNotFoundException(index));
     }
 
     @Override
-    public Optional<Rocket> tryToGet(int index) {
+    public OptionalRocket tryToGet(int index) {
         Rocket rocket;
         if (index < 0 || index >= rockets.length) {
             rocket = null;
@@ -27,7 +28,7 @@ public class UndergroundRocketStorage implements RocketStorage {
             rocket = rockets[index];
         }
         rockets[index] = null;
-        return Optional.ofNullable(rocket);
+        return new OptionalRocket(rocket);
     }
 
 }
