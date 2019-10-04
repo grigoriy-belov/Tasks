@@ -5,7 +5,7 @@ import lesson14.launcher.Rocket;
 
 import java.util.Date;
 
-public class Submarine implements MobileLaunchPlatform {
+public final class Submarine implements MobileLaunchPlatform {
 
     private Coordinates location;
 
