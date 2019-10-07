@@ -1,4 +1,4 @@
-package lesson15.model;
+package lesson15.datewizard.model;
 
 public enum Month {
     JAN("January", 31),
