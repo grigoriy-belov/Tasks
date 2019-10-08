@@ -18,16 +18,26 @@ public enum Month {
 
     private final int numberOfDays;
 
+    private final int numberOfDaysLeapYear;
+
+
     Month(String displayName, int numberOfDays) {
         this.displayName = displayName;
         this.numberOfDays = numberOfDays;
+        this.numberOfDaysLeapYear = numberOfDays;
+    }
+
+    Month(String displayName, int numberOfDays, int numberOfDaysLeapYear) {
+        this.displayName = displayName;
+        this.numberOfDays = numberOfDays;
+        this.numberOfDaysLeapYear = numberOfDaysLeapYear;
     }
 
     public String getDisplayName() {
         return displayName;
     }
 
-    public int getNumberOfDays() {
+    public int getNumberOfDays(boolean leapYear) {
         return numberOfDays;
     }
 }
