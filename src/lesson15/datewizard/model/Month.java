@@ -2,7 +2,7 @@ package lesson15.datewizard.model;
 
 public enum Month {
     JAN("January", 31),
-    FEB("February", 28),
+    FEB("February", 28, 29),
     MAR("March", 31),
     APR("April", 30),
     MAY("May", 31),
@@ -38,6 +38,6 @@ public enum Month {
     }
 
     public int getNumberOfDays(boolean leapYear) {
-        return numberOfDays;
+        return leapYear ? numberOfDaysLeapYear : numberOfDays;
     }
 }

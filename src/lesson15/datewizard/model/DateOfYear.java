@@ -4,16 +4,20 @@ import java.util.Objects;
 
 public final class DateOfYear {
 
+    private final int dayOfMonth;
+
     private final Month month;
 
     private final DayOfWeek dayOfWeek;
 
-    private final int dayOfMonth;
-
-    public DateOfYear(Month month, DayOfWeek dayOfWeek, int dayOfMonth) {
+    public DateOfYear(int dayOfMonth, Month month, DayOfWeek dayOfWeek) {
+        this.dayOfMonth = dayOfMonth;
         this.month = month;
         this.dayOfWeek = dayOfWeek;
-        this.dayOfMonth = dayOfMonth;
+    }
+
+    public int getDayOfMonth() {
+        return dayOfMonth;
     }
 
     public Month getMonth() {
@@ -22,10 +26,6 @@ public final class DateOfYear {
 
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
-    }
-
-    public int getDayOfMonth() {
-        return dayOfMonth;
     }
 
     @Override
@@ -40,7 +40,7 @@ public final class DateOfYear {
 
     @Override
     public int hashCode() {
-        return Objects.hash(month, dayOfWeek, dayOfMonth);
+        return Objects.hash(dayOfMonth, month, dayOfWeek);
     }
 
     @Override

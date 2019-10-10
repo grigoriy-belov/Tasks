@@ -1,30 +1,21 @@
 package lesson15.datewizard.service.impl;
 
-import lesson15.datewizard.model.DateOfYear;
 import lesson15.datewizard.model.DayOfWeek;
 import lesson15.datewizard.model.Month;
-import lesson15.datewizard.service.DateService;
 
 public class NonLeapYearDateService extends AbstractDateService {
 
-    private final DayOfWeek januaryFirst;
-
     public NonLeapYearDateService(DayOfWeek januaryFirst) {
-        this.januaryFirst = januaryFirst;
-    }
-
-    @Override
-    public DateOfYear getDateOfYear(int dayNumber) {
-
+        super(januaryFirst);
     }
 
     @Override
     int getUpperThreshold() {
-        return 0;
+        return 365;
     }
 
     @Override
     int getMonthLength(Month month) {
-        return 0;
+        return month.getNumberOfDays(false);
     }
 }
