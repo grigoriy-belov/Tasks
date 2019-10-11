@@ -1,20 +1,19 @@
 package service.impl;
 
-import model.DateOfYear;
 import model.DayOfWeek;
 import model.Month;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class NonLeapYearDateServiceTest {
     NonLeapYearDateService defaultService;
-    private final DayOfWeek initialDayOfWeek = DayOfWeek.TUE;
 
     @BeforeEach
     void setUp() {
-        defaultService = new NonLeapYearDateService(initialDayOfWeek);
+        defaultService = new NonLeapYearDateService(DayOfWeek.MON);
     }
 
     @Test
@@ -70,11 +69,16 @@ class NonLeapYearDateServiceTest {
         assertEquals(31, defaultService.getDateOfYear(365).getDayOfMonth());
     }
 
-//    for days which remainder of the division by 7 is 1, the week day should be equal initial week day
     @Test
     void checkWeekBoundaries() {
-        assertEquals(defaultService.getDateOfYear(50).getDayOfWeek(), initialDayOfWeek);
-        assertEquals(defaultService.getDateOfYear(344).getDayOfWeek(), initialDayOfWeek);
+        for (int i = 8; i <= defaultService.getUpperThreshold(); i++) {
+            if (i % 7 == 1) {
+                for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                    NonLeapYearDateService dateService = new NonLeapYearDateService(dayOfWeek);
+                    assertEquals(dateService.getDateOfYear(1).getDayOfWeek(), dateService.getDateOfYear(i).getDayOfWeek());
+                }
+            }
+        }
     }
 
     @Test

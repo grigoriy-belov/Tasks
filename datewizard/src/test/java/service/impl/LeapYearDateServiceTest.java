@@ -1,20 +1,19 @@
 package service.impl;
 
-import model.DateOfYear;
 import model.DayOfWeek;
 import model.Month;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LeapYearDateServiceTest {
     LeapYearDateService defaultService;
-    private final DayOfWeek initialDayOfWeek = DayOfWeek.FRI;
 
     @BeforeEach
     void setUp() {
-        defaultService = new LeapYearDateService(initialDayOfWeek);
+        defaultService = new LeapYearDateService(DayOfWeek.MON);
     }
 
     @Test
@@ -42,14 +41,6 @@ class LeapYearDateServiceTest {
     void whenDayNumberLessThanOrEqualsZero_shouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> defaultService.getDateOfYear(0));
         assertThrows(IllegalArgumentException.class, () -> defaultService.getDateOfYear(-1));
-//   another option
-//
-//        try {
-//            defaultService.getDateOfYear(0);
-//             fail("Exception expected");
-//        } catch (Exception e) {
-//            assertTrue(e instanceof IllegalArgumentException);
-//        }
     }
 
     @Test
@@ -70,12 +61,16 @@ class LeapYearDateServiceTest {
         assertEquals(31, defaultService.getDateOfYear(366).getDayOfMonth());
     }
 
-//    for days which remainder of the division by 7 is 1, the week day should be equal initial week day
     @Test
     void checkWeekBoundaries() {
-        assertEquals(defaultService.getDateOfYear(50).getDayOfWeek(), initialDayOfWeek);
-        assertEquals(defaultService.getDateOfYear(183).getDayOfWeek(), initialDayOfWeek);
-        assertEquals(defaultService.getDateOfYear(344).getDayOfWeek(), initialDayOfWeek);
+        for (int i = 8; i <= defaultService.getUpperThreshold(); i++) {
+            if (i % 7 == 1) {
+                for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+                    LeapYearDateService dateService = new LeapYearDateService(dayOfWeek);
+                    assertEquals(dateService.getDateOfYear(1).getDayOfWeek(), dateService.getDateOfYear(i).getDayOfWeek());
+                }
+            }
+        }
     }
 
     @Test
