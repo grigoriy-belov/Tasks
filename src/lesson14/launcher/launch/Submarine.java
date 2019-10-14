@@ -18,8 +18,10 @@ public final class Submarine implements MobileLaunchPlatform {
         this.location = location;
     }
 
+
     @Override
     public Launch launch(Rocket rocket) {
+        Date date = new Date();
         Launch launch =  new Launch(location, rocket, new Date());
 
         System.out.println(rocket.getWarhead() +
