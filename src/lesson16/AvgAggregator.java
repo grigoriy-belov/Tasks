@@ -7,6 +7,6 @@ public class AvgAggregator implements Aggregator<Double, Integer> {
     @Override
     public Double aggregate(Integer[] items) {
         double sum = sumAggregator.aggregate(items);
-        return sum /items.length;
+        return sum / items.length;
     }
 }
