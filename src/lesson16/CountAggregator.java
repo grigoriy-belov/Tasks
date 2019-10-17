@@ -4,6 +4,6 @@ public class CountAggregator<T> implements Aggregator<Integer, T> {
 
     @Override
     public Integer aggregate(T[] items) {
-        return items.length;
+        return  items == null ? 0 : items.length;
     }
 }

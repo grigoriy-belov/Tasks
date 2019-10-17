@@ -1,15 +1,23 @@
 package lesson16;
 
-public class SumAggregator implements Aggregator<Integer, Integer> {
+abstract class SumAggregator<T extends Number> implements Aggregator<T, T> {
     @Override
-    public Integer aggregate(Integer[] items) {
-        int sum = 0;
+    public T aggregate(T[] items) {
+        if (items == null) {
+            return null;
+        }
+        int length = items.length;
+        if (length == 0) {
+            throw new IllegalArgumentException("Empty array has no sum");
+        }
+        T sum = items[0];
 
-        for (Integer item : items) {
-            if (item != null) {
-                sum += item;
-            }
+        for (int i = 1; i < items.length ; i++) {
+            sum = sum(sum, items[i]);
         }
         return sum;
+
     }
+
+    abstract T sum(T x, T y);
 }
