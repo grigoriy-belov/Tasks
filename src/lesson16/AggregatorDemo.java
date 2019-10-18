@@ -8,7 +8,7 @@ public class AggregatorDemo {
         CountAggregator<Integer> countAggregator = new CountAggregator<>();
         System.out.println(countAggregator.aggregate(arr));
 
-        SumAggregator sumAggregator = new SumAggregator();
+        SumAggregator sumAggregator = new IntSumAggregator();
         System.out.println(sumAggregator.aggregate(arr));
 
         AvgAggregator avgAggregator = new AvgAggregator();
