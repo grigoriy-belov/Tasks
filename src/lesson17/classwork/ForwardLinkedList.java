@@ -1,5 +1,7 @@
 package lesson17.classwork;
 
+import javax.swing.*;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -26,8 +28,30 @@ public class ForwardLinkedList<T> {
         size++;
     }
 
-    public void remove(int index) {
-        Node<T> removed = navigate(index);
+    public T remove(int index) {
+        if (index == size) {
+            throw new IndexOutOfBoundsException("Can't remove element, index is equal to size (" + size + ")");
+        }
+        Node<T> previous = navigate(index - 1);
+        Node<T> removed = previous.next();
+        Node<T> next = removed.next();
+        previous.link(next);
+        size--;
+        return removed.getValue();
+    }
+
+    public boolean contains(T element) {
+        if (isEmpty()) return false;
+
+        Node<T> n = head;
+
+        do {
+            if (Objects.equals(element, n.getValue()))
+                return true;
+            n = n.next();
+        } while (n.hasNext());
+
+        return false;
     }
 
     public T get(int index) {
@@ -58,10 +82,46 @@ public class ForwardLinkedList<T> {
 
     private Node<T> tail() {
         Node<T> n = head;
-        while (!n.isLast()) {
+        while (n.hasNext()) {
             n = n.next();
         }
         return n;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ForwardLinkedList<?> that = (ForwardLinkedList<?>) o;
+        return size == that.size && Objects.equals(that.head, head);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(head);
+    }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) return "[]";
+        StringBuilder sb = new StringBuilder("[");
+        Node<T> n = head;
+        sb.append(head.getValue());
+        while (n.hasNext()) {
+            n = n.next();
+            sb.append(", ").append(n.getValue());
+        }
+        return sb.append("]").toString();
+    }
+
+    private boolean deepEquals(Node<?> n1, Node<?> n2) {
+        if (n1.hasNext() && n2.hasNext()) {
+            return deepEquals(n1.next(), n2.next());
+        } else if (!n1.hasNext() && !n2.hasNext()) {
+            return Objects.equals(n1.getValue(), n2.getValue());
+        } else {
+            return false;
+        }
     }
 
     private final class Node<E> {
@@ -97,8 +157,22 @@ public class ForwardLinkedList<T> {
             return next;
         }
 
-        public boolean isLast() {
-            return next == null;
+        public boolean hasNext() {
+            return next != null;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Node<?> node = (Node<?>) o;
+            return Objects.equals(value, node.value) &&
+                    Objects.equals(next, node.next);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value, next);
         }
     }
 }
