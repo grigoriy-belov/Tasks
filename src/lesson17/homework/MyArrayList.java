@@ -1,4 +1,4 @@
-package lesson17;
+package lesson17.homework;
 
 import java.util.Arrays;
 import java.util.Iterator;
