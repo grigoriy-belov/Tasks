@@ -1,11 +1,10 @@
 package lesson17.classwork;
 
-import javax.swing.*;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class ForwardLinkedList<T> {
+public class ForwardLinkedList<T> implements Iterable<T> {
 
     private Node<T> head;
 
@@ -114,17 +113,54 @@ public class ForwardLinkedList<T> {
         return sb.append("]").toString();
     }
 
-    private boolean deepEquals(Node<?> n1, Node<?> n2) {
-        if (n1.hasNext() && n2.hasNext()) {
-            return deepEquals(n1.next(), n2.next());
-        } else if (!n1.hasNext() && !n2.hasNext()) {
-            return Objects.equals(n1.getValue(), n2.getValue());
-        } else {
-            return false;
+    @Override
+    public Iterator<T> iterator() {
+        return new Itr<>(this);
+    }
+
+    private final class Itr<E> implements Iterator<E> {
+
+        private Node<E> previous = null;
+
+        private Node<E> current;
+
+        private ForwardLinkedList<E> list;
+
+        Itr(ForwardLinkedList<E> list) {
+            current = list.head;
+            this.list = list;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != null && current.hasNext();
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Node<E> next = current.next();
+            previous = current;
+            current = next;
+            return next.getValue();
+        }
+
+        @Override
+        public void remove() {
+            if (current != null) {
+                Node<E> next = current.next();
+                if (previous == null) {
+                    list.head = next;
+                } else {
+                    previous.link(next);
+                }
+            }
         }
     }
 
-    private final class Node<E> {
+    private static final class Node<E> {
         private E value;
         private Node<E> next;
 
