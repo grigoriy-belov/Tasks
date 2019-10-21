@@ -73,7 +73,7 @@ public class ForwardLinkedList<T> implements Iterable<T> {
     private Node<T> navigate(int index) {
         Objects.checkIndex(index, size);
         Node<T> n = head;
-        for (int i = 0; i < index; i++) {
+        for (int i = 1; i < index; i++) {
             n = head.next();
         }
         return n;
@@ -127,7 +127,7 @@ public class ForwardLinkedList<T> implements Iterable<T> {
         private ForwardLinkedList<E> list;
 
         Itr(ForwardLinkedList<E> list) {
-            current = list.head;
+            this.current = new Node<>(null, )
             this.list = list;
         }
 
@@ -149,14 +149,14 @@ public class ForwardLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-            if (current != null) {
+
                 Node<E> next = current.next();
                 if (previous == null) {
                     list.head = next;
                 } else {
                     previous.link(next);
                 }
-            }
+
         }
     }
 
