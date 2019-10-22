@@ -20,10 +20,16 @@ public class ForwardLinkedList<T> implements Iterable<T> {
     }
 
     public void add(int index, T element) {
-        Node<T> previous = navigate(index -1);
-        Node<T> next = previous.next();
-        Node<T> added = new Node<T>(element, next);
-        previous.link(added);
+        Node<T> added;
+        if (index == 0) {
+            added = new Node<>(element, head);
+            head = added;
+        } else {
+            Node<T> previous = navigate(index -1);
+            Node<T> next = previous.next();
+            added = new Node<T>(element, next);
+            previous.link(added);
+        }
         size++;
     }
 
@@ -31,10 +37,16 @@ public class ForwardLinkedList<T> implements Iterable<T> {
         if (index == size) {
             throw new IndexOutOfBoundsException("Can't remove element, index is equal to size (" + size + ")");
         }
-        Node<T> previous = navigate(index - 1);
-        Node<T> removed = previous.next();
-        Node<T> next = removed.next();
-        previous.link(next);
+        Node<T> removed;
+        if (index == 0) {
+            removed = head;
+            head = head.next();
+        } else {
+            Node<T> previous = navigate(index - 1);
+            removed = previous.next();
+            Node<T> next = removed.next();
+            previous.link(next);
+        }
         size--;
         return removed.getValue();
     }
@@ -73,8 +85,8 @@ public class ForwardLinkedList<T> implements Iterable<T> {
     private Node<T> navigate(int index) {
         Objects.checkIndex(index, size);
         Node<T> n = head;
-        for (int i = 1; i < index; i++) {
-            n = head.next();
+        for (int i = 1; i <= index; i++) {
+            n = n.next();
         }
         return n;
     }
@@ -103,9 +115,11 @@ public class ForwardLinkedList<T> implements Iterable<T> {
     @Override
     public String toString() {
         if (isEmpty()) return "[]";
+
         StringBuilder sb = new StringBuilder("[");
-        Node<T> n = head;
         sb.append(head.getValue());
+
+        Node<T> n = head;
         while (n.hasNext()) {
             n = n.next();
             sb.append(", ").append(n.getValue());
@@ -120,20 +134,18 @@ public class ForwardLinkedList<T> implements Iterable<T> {
 
     private final class Itr<E> implements Iterator<E> {
 
-        private Node<E> previous = null;
+        private Node<E> previous;
 
         private Node<E> current;
 
-        private ForwardLinkedList<E> list;
-
         Itr(ForwardLinkedList<E> list) {
-            this.current = new Node<>(null, )
-            this.list = list;
+            this.current = new Node<>(null, list.head);
+            this.previous = new Node<>(null, current);
         }
 
         @Override
         public boolean hasNext() {
-            return current != null && current.hasNext();
+            return current.hasNext();
         }
 
         @Override
@@ -149,14 +161,8 @@ public class ForwardLinkedList<T> implements Iterable<T> {
 
         @Override
         public void remove() {
-
-                Node<E> next = current.next();
-                if (previous == null) {
-                    list.head = next;
-                } else {
-                    previous.link(next);
-                }
-
+            Node<E> next = current.next();
+            previous.link(next);
         }
     }
 
