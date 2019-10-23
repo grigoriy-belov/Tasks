@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class BackwardLinkedList<T>  {
+public class BackwardLinkedList<T> implements Iterable<T>  {
     private Node<T> tail;
 
     private int size = 0;
@@ -129,6 +129,57 @@ public class BackwardLinkedList<T>  {
             sb.append(", ").append(n.getValue());
         }
         return sb.append("]").toString();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Itr<>(this);
+    }
+
+    private static final class Itr<E> implements Iterator<E> {
+
+        private Node<E> previous;
+        private Node<E> current;
+        private Node<E> next;
+        private Node<E> tail;
+
+        Itr(BackwardLinkedList<E> list) {
+            this.current = new Node<>(null, null);
+            this.next = new Node<>(null, null);
+            this.previous = new Node<>(null, list.head().previous());
+            this.tail = list.tail;
+        }
+
+        @Override
+        public boolean hasNext() {
+            Node<E> n = tail;
+            next = null;
+            while (!Objects.equals(n, current) && n != null) {
+                next = n;
+                n = n.previous();
+            }
+            return next != null;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            previous = current;
+            current = next;
+            return next.getValue();
+        }
+
+        @Override
+        public void remove() {
+            if (next == null) {
+                tail = previous;
+                current.link(previous);
+            } else {
+                next.link(previous);
+            }
+        }
     }
 
     private static final class Node<E> {

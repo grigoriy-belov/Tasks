@@ -3,6 +3,7 @@ package lesson17;
 import java.util.LinkedList;
 
 public class Test {
+
     static Node head;
 
     static class Node {

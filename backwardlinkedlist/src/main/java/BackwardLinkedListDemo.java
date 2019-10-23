@@ -1,13 +1,29 @@
+import java.util.Iterator;
+
 public class BackwardLinkedListDemo {
     public static void main(String[] args) {
         BackwardLinkedList<String> strings = new BackwardLinkedList<>();
         strings.add("one");
         strings.add("two");
-        System.out.println(strings.size());
+        strings.add("three");
 
-        for (int i = 0; i < strings.size(); i++) {
-            System.out.println(strings.get(i));
+
+        Iterator<String> itr = strings.iterator();
+        int count = 0;
+        String s = "";
+        while (itr.hasNext()) {
+//            if (count == 3) {
+//                itr.remove();
+//            }
+            s = itr.next();
+            count++;
         }
+        itr.remove();
+
+        for (String string : strings) {
+            System.out.println(string);
+        }
+
 
     }
 }
