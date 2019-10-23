@@ -9,15 +9,12 @@ public class BackwardLinkedListDemo {
         System.out.println(strings);
 
         Iterator<String> itr = strings.iterator();
-        int count = 0;
         String s = "";
         while (itr.hasNext()) {
-            if (count == 1) {
-                itr.remove();
-            }
             s = itr.next();
-            count++;
         }
+        System.out.println("Removing last element");
+        itr.remove();
 
         for (String string : strings) {
             System.out.println(string);
