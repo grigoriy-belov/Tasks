@@ -6,7 +6,7 @@ public class BackwardLinkedListDemo {
         strings.add("one");
         strings.add("two");
         strings.add("three");
-
+        System.out.println(strings);
 
         Iterator<String> itr = strings.iterator();
         int count = 0;

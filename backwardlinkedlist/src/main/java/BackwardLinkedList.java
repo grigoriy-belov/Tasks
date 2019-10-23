@@ -119,16 +119,19 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
     public String toString() {
         if (isEmpty()) return "[]";
 
-        StringBuilder sb = new StringBuilder("[");
-        sb.append(tail.getValue());
+        StringBuilder sb = new StringBuilder("]");
+        sb.insert(0, tail.getValue());
 
         Node<T> n = tail;
-
+//
+//        for (T element : this) {
+//            sb.append(", ").append(element);
+//        }
         while (n.hasPrevious()) {
             n = n.previous();
-            sb.append(", ").append(n.getValue());
+            sb.insert(0, ", ").insert(0, n.getValue());
         }
-        return sb.append("]").toString();
+        return sb.insert(0, "[").toString();
     }
 
     @Override
