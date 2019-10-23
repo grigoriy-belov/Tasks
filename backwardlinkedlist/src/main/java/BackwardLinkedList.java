@@ -142,12 +142,14 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
         private Node<E> current;
         private Node<E> next;
         private Node<E> tail;
+        BackwardLinkedList<E> list;
 
         Itr(BackwardLinkedList<E> list) {
             this.current = new Node<>(null, null);
             this.next = new Node<>(null, null);
             this.previous = new Node<>(null, list.head().previous());
             this.tail = list.tail;
+            this.list = list;
         }
 
         @Override
@@ -174,8 +176,7 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
         @Override
         public void remove() {
             if (next == null) {
-                tail = previous;
-                current.link(previous);
+                list.tail = previous;
             } else {
                 next.link(previous);
             }

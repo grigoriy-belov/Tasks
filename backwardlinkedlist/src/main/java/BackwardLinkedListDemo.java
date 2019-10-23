@@ -12,18 +12,15 @@ public class BackwardLinkedListDemo {
         int count = 0;
         String s = "";
         while (itr.hasNext()) {
-//            if (count == 3) {
-//                itr.remove();
-//            }
+            if (count == 1) {
+                itr.remove();
+            }
             s = itr.next();
             count++;
         }
-        itr.remove();
 
         for (String string : strings) {
             System.out.println(string);
         }
-
-
     }
 }
