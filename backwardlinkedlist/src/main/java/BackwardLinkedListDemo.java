@@ -9,9 +9,8 @@ public class BackwardLinkedListDemo {
         System.out.println(strings);
 
         Iterator<String> itr = strings.iterator();
-        String s = "";
         while (itr.hasNext()) {
-            s = itr.next();
+           itr.next();
         }
         System.out.println("Removing last element");
         itr.remove();

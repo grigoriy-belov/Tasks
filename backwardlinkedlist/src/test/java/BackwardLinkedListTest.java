@@ -1,11 +1,14 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BackwardLinkedListTest {
-    BackwardLinkedList<String> strings;
-    BackwardLinkedList<String> emptyList;
+    private BackwardLinkedList<String> strings;
+    private BackwardLinkedList<String> emptyList;
+    private Iterator<String> itr;
 
     @BeforeEach
     void setUp() {
@@ -15,6 +18,7 @@ class BackwardLinkedListTest {
         strings.add("two");
         strings.add("three");
         strings.add("four");
+        itr = strings.iterator();
     }
 
     @Test
@@ -85,7 +89,7 @@ class BackwardLinkedListTest {
         compared.add("three");
         compared.add("four");
 
-        assertTrue(strings.equals(compared));
+        assertEquals(strings, compared);
         strings.add(2, "one and half");
         assertNotEquals(strings, compared);
     }
@@ -107,4 +111,24 @@ class BackwardLinkedListTest {
         assertEquals("[one, two, three, four]", strings.toString());
     }
 
+    @Test
+    void iteratorShouldReturnRightElement() {
+        assertEquals("one", itr.next());
+        assertEquals("two", itr.next());
+        assertEquals("three", itr.next());
+        assertEquals("four", itr.next());
+    }
+
+    @Test
+    void iteratorShouldRemoveLastReturnedElement() {
+        itr.next();
+        itr.remove();
+        assertEquals("two", strings.get(0));
+        itr.next();
+        itr.remove();
+        assertEquals("three", strings.get(0));
+        itr.next();
+        itr.remove();
+        assertEquals("four", strings.get(0));
+    }
 }

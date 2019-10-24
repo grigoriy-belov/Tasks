@@ -141,29 +141,23 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
 
     private static final class Itr<E> implements Iterator<E> {
 
-        private Node<E> previous;
-        private Node<E> current;
-        private Node<E> next;
-        private Node<E> tail;
+        private int index;
+        Object[] elementData;
         BackwardLinkedList<E> list;
 
         Itr(BackwardLinkedList<E> list) {
-            this.current = new Node<>(null, null);
-            this.next = new Node<>(null, null);
-            this.previous = new Node<>(null, list.head().previous());
-            this.tail = list.tail;
+            this.index = -1;
+            this.elementData = new Object[list.size()];
             this.list = list;
+
+            for (int i = 0; i <= list.size() - 1; i++) {
+                elementData[i] = list.get(i);
+            }
         }
 
         @Override
         public boolean hasNext() {
-            Node<E> n = tail;
-            next = null;
-            while (!Objects.equals(n, current) && n != null) {
-                next = n;
-                n = n.previous();
-            }
-            return next != null;
+            return index < elementData.length - 1;
         }
 
         @Override
@@ -171,18 +165,17 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            previous = current;
-            current = next;
-            return next.getValue();
+            return (E) elementData[++index];
         }
 
         @Override
         public void remove() {
-            if (next == null) {
-                list.tail = previous;
-            } else {
-                next.link(previous);
-            }
+            list.remove(index);
+            final int newSize = elementData.length - 1;
+            System.arraycopy(elementData, index + 1, elementData,
+                    index, newSize - index);
+            elementData[newSize] = null;
+            index--;
         }
     }
 
