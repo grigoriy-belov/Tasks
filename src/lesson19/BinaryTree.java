@@ -1,5 +1,8 @@
 package lesson19;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinaryTree {
 
     private Node root;
@@ -8,7 +11,7 @@ public class BinaryTree {
         this.root = new Node(root);
     }
 
-    private boolean add (int value) {
+    public boolean add (int value) {
         return add(value, root);
     }
 
@@ -17,7 +20,7 @@ public class BinaryTree {
         final boolean added;
         if (rootVal == value) {
             added = false;
-        } else if (rootVal < value) {
+        } else if (value < rootVal) {
             if (root.left == null) {
                 root.left = new Node(value);
                 added = true;
@@ -44,7 +47,7 @@ public class BinaryTree {
         final boolean contains;
         if (rootVal == value) {
             contains = true;
-        } else if (rootVal < value) {
+        } else if (value < rootVal) {
             if (root.left == null) {
                 contains = false;
             } else {
@@ -83,9 +86,41 @@ public class BinaryTree {
         if (root.right == null) {
             max = root.value;
         } else {
-            max = min(root.right);
+            max = max(root.right);
         }
         return max;
+    }
+
+    public List<Integer> ascending() {
+        List<Integer> list = new ArrayList<>();
+        ascending(root, list);
+        return list;
+    }
+
+    private static void ascending(Node root, List<Integer> list) {
+        if (root.left != null) {
+            ascending(root.left, list);
+        }
+        list.add(root.value);
+        if (root.right != null) {
+            ascending(root.right, list);
+        }
+    }
+
+    public List<Integer> descending() {
+        List<Integer> list = new ArrayList<>();
+        descending(root, list);
+        return list;
+    }
+
+    private static void descending(Node root, List<Integer> list) {
+        if (root.right != null) {
+            descending(root.right, list);
+        }
+        list.add(root.value);
+        if (root.left != null) {
+            descending(root.left, list);
+        }
     }
 
     private static class Node {
