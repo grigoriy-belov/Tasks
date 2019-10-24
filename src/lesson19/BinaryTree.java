@@ -4,11 +4,15 @@ public class BinaryTree {
 
     private Node root;
 
+    public BinaryTree(int root) {
+        this.root = new Node(root);
+    }
+
     private boolean add (int value) {
         return add(value, root);
     }
 
-    private boolean add (int value, Node root) {
+    private static boolean add (int value, Node root) {
         final int rootVal = root.value;
         final boolean added;
         if (rootVal == value) {
@@ -35,7 +39,7 @@ public class BinaryTree {
         return contains(value, root);
     }
 
-    private boolean contains(int value, Node root) {
+    private static boolean contains(int value, Node root) {
         final int rootVal = root.value;
         final boolean contains;
         if (rootVal == value) {
@@ -54,6 +58,34 @@ public class BinaryTree {
             }
         }
         return contains;
+    }
+
+    public int min() {
+        return min(root);
+    }
+
+    private static int min(Node root) {
+        final int min;
+        if (root.left == null) {
+            min = root.value;
+        } else {
+            min = min(root.left);
+        }
+        return min;
+    }
+
+    public int max() {
+        return max(root);
+    }
+
+    private static int max(Node root) {
+        final int max;
+        if (root.right == null) {
+            max = root.value;
+        } else {
+            max = min(root.right);
+        }
+        return max;
     }
 
     private static class Node {
