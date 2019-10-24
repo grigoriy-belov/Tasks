@@ -123,10 +123,7 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
         sb.insert(0, tail.getValue());
 
         Node<T> n = tail;
-//
-//        for (T element : this) {
-//            sb.append(", ").append(element);
-//        }
+
         while (n.hasPrevious()) {
             n = n.previous();
             sb.insert(0, ", ").insert(0, n.getValue());
@@ -160,6 +157,7 @@ public class BackwardLinkedList<T> implements Iterable<T>  {
             return index < elementData.length - 1;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public E next() {
             if (!hasNext()) {
