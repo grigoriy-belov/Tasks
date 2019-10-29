@@ -7,7 +7,7 @@ public class DistanceParent {
 
     private int parentVertex; // current parent of this vertex
 
-    public DistanceParent(int distance, int parentVertex) {
+    public DistanceParent(int parentVertex, int distance) {
         this.distance = distance;
         this.parentVertex = parentVertex;
     }
