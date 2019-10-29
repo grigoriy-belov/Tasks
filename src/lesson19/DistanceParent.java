@@ -1,6 +1,6 @@
 package lesson19;
 
-public class DistanceParent {
+public class DistanceParent implements Comparable<DistanceParent>{
     // distance and parent items stored in shortestPath array
 
     private int distance; // distance from start to this vertex
@@ -26,5 +26,10 @@ public class DistanceParent {
 
     public void setParentVertex(int parentVertex) {
         this.parentVertex = parentVertex;
+    }
+
+    @Override
+    public int compareTo(DistanceParent other) {
+        return this.distance - other.distance;
     }
 }

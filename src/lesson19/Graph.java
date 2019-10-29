@@ -1,5 +1,8 @@
 package lesson19;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Graph {
 
     private final int MAX_VERTICES = 20;
@@ -8,7 +11,7 @@ public class Graph {
     private int adjacencyMatrix[][];
     private int verticesQty;                // current number of vertices
     private int treeVertsQty;               // number of vertices in tree
-    private DistanceParent[] shortestPath;  // array for shortest-path data
+    private TreeMap<Integer, DistanceParent> shortestPath;  // array for shortest-path data
     private int currentVertex;
     private int startToCurrent;             // distance to currentVertex
 
@@ -23,7 +26,7 @@ public class Graph {
                 adjacencyMatrix[i][j] = INFINITY;
             }
         }
-        shortestPath = new DistanceParent[MAX_VERTICES];
+        shortestPath = new TreeMap<>();
     }
 
     public void addVertex(String name) {
@@ -42,22 +45,22 @@ public class Graph {
         // transfer row of distances from adjacencyMatrix to shortestPath
         for (int i = 0; i < verticesQty; i++) {
             int tempDistance = adjacencyMatrix[start][i];
-            shortestPath[i] = new DistanceParent(start, tempDistance);
+            shortestPath.put(i, new DistanceParent(start, tempDistance));
         }
 
         // until all vertices are in the tree
         while (treeVertsQty < verticesQty) {
-            int indexMin = getMin(start);
-            int minDist = shortestPath[indexMin].getDistance();
+            Map.Entry<Integer, DistanceParent> entry = getMinDistance(start);
+            int minDist = entry.getValue().getDistance();
 
             if (minDist == INFINITY) {
                 System.out.println("There are unreachable vertices");
                 break;
             } else {
                 // reset currentVertex to closest vertex
-                currentVertex = indexMin;
+                currentVertex = entry.getKey();
                 // minimum distance from startTree is to currentVertex and is startToCurrent
-                startToCurrent = shortestPath[indexMin].getDistance();
+                startToCurrent = entry.getValue().getDistance();
             }
             // put current vertex in tree
             vertexList[currentVertex].addToTree();
@@ -67,7 +70,7 @@ public class Graph {
         }
         int[] result = new int[verticesQty];
         for (int i = 0; i < verticesQty; i++) {
-            result[i] = shortestPath[i].getDistance();
+            result[i] = shortestPath.get(i).getDistance();
         }
         return result;
     }
@@ -77,18 +80,13 @@ public class Graph {
     }
 
     // get entry from shortestPath with minimum distance
-    private int getMin(int start) {
-        int minDist = INFINITY;
-        int indexMin = 0;
-
-        for (int i = 0; i < verticesQty; i++) {
-            if (!vertexList[i].isInTree() && shortestPath[i].getDistance() < minDist
-                && i != start) {
-                minDist = shortestPath[i].getDistance();
-                indexMin = i;
-            }
+    private Map.Entry<Integer, DistanceParent> getMinDistance(int start) {
+        Map.Entry<Integer, DistanceParent> result = null;
+        for (Map.Entry<Integer, DistanceParent> entry : shortestPath.entrySet()) {
+            if (!vertexList[entry.getKey()].isInTree())
+                result =  entry;
         }
-        return indexMin;
+        return result;
     }
 
     private void adjustShortestPath(int start) {
@@ -106,28 +104,15 @@ public class Graph {
             // add distance from start
             int startToFringe = startToCurrent + currentToFringe;
             // get distance of current shortestPath entry
-            int sPathDist = shortestPath[column].getDistance();
+            int sPathDist = shortestPath.get(column).getDistance();
 
             // compare distance from start with shortPath entry
             if (startToFringe < sPathDist) {
                 //  if shorter, update shortestPath
-                shortestPath[column].setParentVertex(currentVertex);
-                shortestPath[column].setDistance(startToFringe);
+                shortestPath.get(column).setParentVertex(currentVertex);
+                shortestPath.get(column).setDistance(startToFringe);
             }
             column++;
         }
-    }
-
-    public void displayPaths() {
-        for (int j = 0; j < verticesQty; j++) {
-            System.out.print(vertexList[j].getName() + "=");
-            if (shortestPath[j].getDistance() == INFINITY)
-                System.out.print("inf");
-            else
-                System.out.print(shortestPath[j].getDistance());
-            String parent = vertexList[shortestPath[j].getParentVertex()].getName();
-            System.out.print("(" + parent + ") ");
-        }
-        System.out.println("");
     }
 }
