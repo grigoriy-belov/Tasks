@@ -47,7 +47,7 @@ public class Graph {
         }
 
         // until all vertices are in the tree
-        while (verticesQty < treeVertsQty) {
+        while (treeVertsQty < verticesQty) {
             int indexMin = getMin();
             int minDist = shortestPath[indexMin].getDistance();
 
@@ -66,6 +66,7 @@ public class Graph {
             // update shortestPath array
             adjustShortestPath();
         }
+        displayPaths();
     }
 
     // get entry from shortestPath with minimum distance
@@ -99,9 +100,9 @@ public class Graph {
             // get distance of current shortestPath entry
             int sPathDist = shortestPath[column].getDistance();
 
-            // compare distance from start with sPath entry
+            // compare distance from start with shortPath entry
             if (startToFringe < sPathDist) {
-                //  if shorter, update sPath
+                //  if shorter, update shortestPath
                 shortestPath[column].setParentVertex(currentVertex);
                 shortestPath[column].setDistance(startToFringe);
             }
@@ -116,7 +117,7 @@ public class Graph {
                 System.out.print("inf");
             else
                 System.out.print(shortestPath[j].getDistance());
-            String parent = vertexList[shortestPath[j].getDistance()].getName();
+            String parent = vertexList[shortestPath[j].getParentVertex()].getName();
             System.out.print("(" + parent + ") ");
         }
         System.out.println("");
