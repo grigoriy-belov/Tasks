@@ -66,16 +66,59 @@ public class Graph {
             // update shortestPath array
             adjustShortestPath();
         }
-
-
     }
 
     // get entry from shortestPath with minimum distance
-    public int getMin() {
-        return 0;
+    private int getMin() {
+        int minDist = INFINITY;
+        int indexMin = 0;
+
+        for (int i = 1; i < verticesQty; i++) {
+            if (!vertexList[i].isInTree() && shortestPath[i].getDistance() < minDist) {
+                minDist = shortestPath[i].getDistance();
+                indexMin = i;
+            }
+        }
+        return indexMin;
     }
 
-    public void adjustShortestPath() {
+    private void adjustShortestPath() {
+        int column = 1;                // skip starting vertex
+        // go across columns
+        while (column < verticesQty) {
+            // if this column's vertex already in tree, skip it
+            if (vertexList[column].isInTree()) {
+                column++;
+                continue;
+            }
+            // calculate distance for one shortestPath entry
+            // get edge from currentVertex to column
+            int currentToFringe = adjacencyMatrix[currentVertex][column];
+            // add distance from start
+            int startToFringe = startToCurrent + currentToFringe;
+            // get distance of current shortestPath entry
+            int sPathDist = shortestPath[column].getDistance();
 
+            // compare distance from start with sPath entry
+            if (startToFringe < sPathDist) {
+                //  if shorter, update sPath
+                shortestPath[column].setParentVertex(currentVertex);
+                shortestPath[column].setDistance(startToFringe);
+            }
+            column++;
+        }
+    }
+
+    public void displayPaths() {
+        for (int j = 0; j < verticesQty; j++) {
+            System.out.print(vertexList[j].getName() + "=");
+            if (shortestPath[j].getDistance() == INFINITY)
+                System.out.print("inf");
+            else
+                System.out.print(shortestPath[j].getDistance());
+            String parent = vertexList[shortestPath[j].getDistance()].getName();
+            System.out.print("(" + parent + ") ");
+        }
+        System.out.println("");
     }
 }
