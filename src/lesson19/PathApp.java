@@ -2,24 +2,44 @@ package lesson19;
 
 public class PathApp {
     public static void main(String[] args) {
+        Node nodeA = new Node("A");
+        Node nodeB = new Node("B");
+        Node nodeC = new Node("C");
+        Node nodeD = new Node("D");
+        Node nodeE = new Node("E");
+        Node nodeF = new Node("F");
+
+        nodeA.addDestination(nodeB, 10);
+        nodeA.addDestination(nodeC, 15);
+
+        nodeB.addDestination(nodeD, 12);
+        nodeB.addDestination(nodeF, 15);
+
+        nodeC.addDestination(nodeE, 10);
+
+        nodeD.addDestination(nodeE, 2);
+        nodeD.addDestination(nodeF, 1);
+
+        nodeF.addDestination(nodeE, 5);
+
         Graph graph = new Graph();
 
-        graph.addVertex("gdansk");
-        graph.addVertex("bydgoszcz");
-        graph.addVertex("torun");
-        graph.addVertex("warszawa");
+        graph.addNode(nodeA);
+        graph.addNode(nodeB);
+        graph.addNode(nodeC);
+        graph.addNode(nodeD);
+        graph.addNode(nodeE);
+        graph.addNode(nodeF);
 
-        graph.addEdge(0, 1, 1);
-        graph.addEdge(0, 2, 3);
-        graph.addEdge(1, 0, 1);
-        graph.addEdge(1, 2, 1);
-        graph.addEdge(1, 3, 4);
-        graph.addEdge(2, 0, 3);
-        graph.addEdge(2, 1, 1);
-        graph.addEdge(2, 3, 1);
-        graph.addEdge(3, 1, 4);
-        graph.addEdge(3, 2, 1);
-
-        System.out.println(graph.path(1, 3));
+        graph = Dijkstra.calculateShortestPathFromSource(graph, nodeA);
+        for (Node node : graph.getNodes()) {
+            System.out.print(node.getName() + ": ");
+            for (Node node1 : node.getShortestPath()) {
+                System.out.print(node1.getName() + " ");
+            }
+            System.out.println(node.getName());
+            System.out.println(" distance: " + node.getDistance());
+            System.out.println();
+        }
     }
 }
