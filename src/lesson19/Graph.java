@@ -35,20 +35,19 @@ public class Graph {
     }
 
     // find all shortest paths
-    public void path() {
-        int startTree = 0;
-        vertexList[startTree].addToTree();
+    private int[] getShortestPaths(int start) {
+        vertexList[start].addToTree();
         treeVertsQty++;
 
         // transfer row of distances from adjacencyMatrix to shortestPath
         for (int i = 0; i < verticesQty; i++) {
-            int tempDistance = adjacencyMatrix[startTree][i];
-            shortestPath[i] = new DistanceParent(startTree, tempDistance);
+            int tempDistance = adjacencyMatrix[start][i];
+            shortestPath[i] = new DistanceParent(start, tempDistance);
         }
 
         // until all vertices are in the tree
         while (treeVertsQty < verticesQty) {
-            int indexMin = getMin();
+            int indexMin = getMin(start);
             int minDist = shortestPath[indexMin].getDistance();
 
             if (minDist == INFINITY) {
@@ -64,18 +63,27 @@ public class Graph {
             vertexList[currentVertex].addToTree();
             treeVertsQty++;
             // update shortestPath array
-            adjustShortestPath();
+            adjustShortestPath(start);
         }
-        displayPaths();
+        int[] result = new int[verticesQty];
+        for (int i = 0; i < verticesQty; i++) {
+            result[i] = shortestPath[i].getDistance();
+        }
+        return result;
+    }
+
+    public int path(int start, int end) {
+        return getShortestPaths(start)[end];
     }
 
     // get entry from shortestPath with minimum distance
-    private int getMin() {
+    private int getMin(int start) {
         int minDist = INFINITY;
         int indexMin = 0;
 
-        for (int i = 1; i < verticesQty; i++) {
-            if (!vertexList[i].isInTree() && shortestPath[i].getDistance() < minDist) {
+        for (int i = 0; i < verticesQty; i++) {
+            if (!vertexList[i].isInTree() && shortestPath[i].getDistance() < minDist
+                && i != start) {
                 minDist = shortestPath[i].getDistance();
                 indexMin = i;
             }
@@ -83,12 +91,12 @@ public class Graph {
         return indexMin;
     }
 
-    private void adjustShortestPath() {
-        int column = 1;                // skip starting vertex
+    private void adjustShortestPath(int start) {
+        int column = 0;                // skip starting vertex
         // go across columns
         while (column < verticesQty) {
             // if this column's vertex already in tree, skip it
-            if (vertexList[column].isInTree()) {
+            if (vertexList[column].isInTree() || column == start) {
                 column++;
                 continue;
             }
