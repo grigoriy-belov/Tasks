@@ -1,8 +1,6 @@
 package lesson19;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
 import java.util.Set;
 
 public class Graph {
@@ -14,5 +12,15 @@ public class Graph {
 
     public Set<Node> getNodes() {
         return nodes;
+    }
+
+    public int getShortestDistance(Node source, Node target) {
+        int result = -1;
+        for (Node node : nodes) {
+            if (node == target) {
+                result = node.getDistance();
+            }
+        }
+        return result;
     }
 }
