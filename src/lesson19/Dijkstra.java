@@ -6,7 +6,20 @@ import java.util.Map;
 import java.util.Set;
 
 public class Dijkstra {
-    public static Graph calculateShortestPathFromSource(Graph graph, Node source) {
+    public static int getShortestDistance(Graph graph, Node source, Node target) {
+        graph = calculateShortestPathFromSourceToTarget(graph, source, target);
+
+        Set<Node> nodes = graph.getNodes();
+        int result = -1;
+        for (Node node : nodes) {
+            if (node == target) {
+                result = node.getDistance();
+            }
+        }
+        return result;
+    }
+
+    private static Graph calculateShortestPathFromSourceToTarget(Graph graph, Node source, Node target) {
         source.setDistance(0);
 
         Set<Node> settledNodes = new HashSet<>();
@@ -16,6 +29,7 @@ public class Dijkstra {
 
         while (unsettledNodes.size() != 0) {
             Node currentNode = getLowestDistanceNode(unsettledNodes);
+            if (currentNode == target) break;
             unsettledNodes.remove(currentNode);
             for (Map.Entry<Node, Integer> adjacencyPair:
                     currentNode.getAdjacentNodes().entrySet()) {

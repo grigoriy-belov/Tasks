@@ -31,15 +31,6 @@ public class PathApp {
         graph.addNode(nodeE);
         graph.addNode(nodeF);
 
-        graph = Dijkstra.calculateShortestPathFromSource(graph, nodeA);
-        for (Node node : graph.getNodes()) {
-            System.out.print(node.getName() + ": ");
-            for (Node node1 : node.getShortestPath()) {
-                System.out.print(node1.getName() + " ");
-            }
-            System.out.println(node.getName());
-            System.out.println(" distance: " + node.getDistance());
-            System.out.println();
-        }
+        System.out.println(Dijkstra.getShortestDistance(graph, nodeA, nodeE));
     }
 }
