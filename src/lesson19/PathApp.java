@@ -6,13 +6,14 @@ import java.util.*;
 public class PathApp {
     public static void main(String[] args) {
 
-        Graph graph = null;
+        try (BufferedReader br = new BufferedReader(new FileReader("misc\\files\\input.txt"));
+             BufferedWriter writer = new BufferedWriter(new FileWriter("misc\\files\\output.txt"))) {
 
-        Map<String, Map<Integer, Integer>> cityMap = new LinkedHashMap<>();
-        List<String> sources = new ArrayList<>();
-        List<String> targets = new ArrayList<>();
+            Graph graph = null;
 
-        try (BufferedReader br = new BufferedReader(new FileReader("misc\\files\\input.txt"))) {
+            Map<String, Map<Integer, Integer>> cityMap = new LinkedHashMap<>();
+            List<String> sources = new ArrayList<>();
+            List<String> targets = new ArrayList<>();
 
             for (int numberOfCities = Integer.parseInt(br.readLine()); numberOfCities > 0; numberOfCities--) {
                 String cityName = br.readLine();
@@ -34,15 +35,10 @@ public class PathApp {
                 targets.add(names[1]);
             }
 
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("misc\\files\\output.txt"))) {
             for (int i = 0; i < sources.size(); i++) {
                 Node source = null;
                 Node target = null;
-                graph = initializeGraphAndNodes(cityMap, graph);
+                graph = initializeGraphAndNodes(cityMap);
                 for (Node city : graph.getNodes()) {
                     if (source != null && target != null) break;
                     if (city.getName().equals(sources.get(i))) {
@@ -53,7 +49,7 @@ public class PathApp {
                     }
                 }
                 ShortestPathCalculator.calculateShortestPathsFromSource(graph, source);
-                writer.write(String.valueOf(graph.getShortestDistance(source, target)));
+                writer.write(String.valueOf(graph.getShortestDistance(target)));
                 writer.newLine();
             }
 
@@ -62,8 +58,8 @@ public class PathApp {
         }
     }
 
-    public static Graph initializeGraphAndNodes(Map<String, Map<Integer, Integer>> cityMap, Graph graph) {
-        graph = new Graph();
+    public static Graph initializeGraphAndNodes(Map<String, Map<Integer, Integer>> cityMap) {
+        Graph graph = new Graph();
         List<Node> cityList = new ArrayList<>();
         for (Map.Entry<String, Map<Integer, Integer>> stringMapEntry : cityMap.entrySet()) {
             String cityName = stringMapEntry.getKey();
