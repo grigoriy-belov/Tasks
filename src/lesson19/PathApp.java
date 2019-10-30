@@ -49,7 +49,7 @@ public class PathApp {
                     }
                 }
                 ShortestPathCalculator.calculateShortestPathsFromSource(graph, source);
-                writer.write(String.valueOf(graph.getShortestDistance(target)));
+                writer.write(String.valueOf(graph.getTargetDistance(target)));
                 writer.newLine();
             }
 

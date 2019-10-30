@@ -14,7 +14,7 @@ public class Graph {
         return nodes;
     }
 
-    public int getShortestDistance(Node target) {
+    public int getTargetDistance(Node target) {
         int result = -1;
         for (Node node : nodes) {
             if (node == target) {
