@@ -21,9 +21,7 @@ public class DisplayFolderTree {
     }
 
     private static void printFolderTree(File folder, int indent, StringBuilder sb) {
-        if (!folder.isDirectory()) {
-            throw new IllegalArgumentException("argument is not directory");
-        }
+
         if (indent == 0) {
             sb.append(folder.getName());
             sb.append("\n");
