@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class Huffman {
     private Map<Character, Node> charNodes = new HashMap<>();
@@ -42,6 +43,25 @@ public class Huffman {
             }
         }
         return charFrequency;
+    }
+
+    private Node buildTree(Map<Character, Integer> charFrequency) {
+        PriorityQueue<Node> queue = new PriorityQueue<>();
+
+        for (Map.Entry<Character, Integer> entry : charFrequency.entrySet()) {
+            LeafNode node = new LeafNode(entry.getKey(), entry.getValue());
+            charNodes.put(entry.getKey(), node);
+            queue.add(node);
+        }
+
+        while (queue.size() > 1) {
+            Node first = queue.poll();
+            Node second = queue.poll();
+
+            InternalNode node = new InternalNode(first, second);
+            queue.add(node);
+        }
+        return queue.poll();
     }
 
 
