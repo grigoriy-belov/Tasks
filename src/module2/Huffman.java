@@ -64,5 +64,11 @@ public class Huffman {
         return queue.poll();
     }
 
-
+    private void writeTree(Node node) {
+        if (node instanceof LeafNode) {
+            out.write(true);
+            out.write(((LeafNode) node).getSymbol(), 8);
+            return;
+        }
+    }
 }
