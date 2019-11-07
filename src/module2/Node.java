@@ -2,7 +2,7 @@ package module2;
 
 public class Node implements Comparable<Node> {
     protected final int sum;
-    protected String code;
+    private String code;
 
     public Node(int sum) {
         this.sum = sum;
@@ -12,11 +12,7 @@ public class Node implements Comparable<Node> {
         this.code = code;
     }
 
-    public int getSum() {
-        return sum;
-    }
-
-    public String getCode() {
+    String getCode() {
         return code;
     }
 

@@ -58,12 +58,8 @@ public class BinaryOut implements Closeable {
     }
 
     public void write(char x) {
-        if (x < 0 || x >= 256) throw new IllegalArgumentException("Illegal 8-bit char = " + x);
+        if (x >= 256) throw new IllegalArgumentException("Illegal 8-bit char = " + x);
         writeByte(x);
-    }
-
-    public void write(byte x) {
-        writeByte(x & 0xff);
     }
 
     public void write(boolean x) {
@@ -86,15 +82,6 @@ public class BinaryOut implements Closeable {
         for (int i = 0; i < 8; i++) {
             boolean bit = ((x >>> (8 - i - 1)) & 1) == 1;
             writeBit(bit);
-        }
-    }
-
-    public void flush() {
-        clearBuffer();
-        try {
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
