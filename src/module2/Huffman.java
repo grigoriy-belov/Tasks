@@ -1,5 +1,7 @@
 package module2;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,23 @@ public class Huffman {
 
     public void compress(String inputFileName, String outputFileName) {
 
+
+    }
+
+    private String getInput(String fileName) {
+        String input = "";
+        try (FileInputStream in = new FileInputStream(fileName)) {
+            StringBuilder sb = new StringBuilder();
+
+            int c;
+            while ((c = in.read()) != -1) {
+                sb.append((char) c);
+            }
+            input = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return input;
     }
 
     private Map<Character, Integer> getCharFrequencyFromText(String input) {
@@ -24,5 +43,6 @@ public class Huffman {
         }
         return charFrequency;
     }
+
 
 }
