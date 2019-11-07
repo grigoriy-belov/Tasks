@@ -70,5 +70,8 @@ public class Huffman {
             out.write(((LeafNode) node).getSymbol(), 8);
             return;
         }
+        out.write(false);
+        writeTree(((InternalNode) node).getLeft());
+        writeTree(((InternalNode) node).getRight());
     }
 }
