@@ -15,7 +15,7 @@ public class BlackListRedactorCommand {
                  PreparedStatement psComments = connection.prepareStatement(updateComments);
                  PreparedStatement psThreads = connection.prepareStatement(updateThreads)) {
 
-                FileLoader fileLoader = new FileLoader("");
+                FileLoader fileLoader = new FileLoader(filePath);
                 List<String> blackList = fileLoader.getBlackList();
                 ResultSet commentsSet = statement.executeQuery("SELECT * FROM comments;");
 
