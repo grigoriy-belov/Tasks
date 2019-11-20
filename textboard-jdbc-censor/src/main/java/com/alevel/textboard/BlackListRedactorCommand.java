@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
-public class Censorship {
-    public static void main(String[] args) {
+public class BlackListRedactorCommand {
+    public static void execute(String filePath) {
         try (Connection connection = ConnectionFactory.connect()) {
             connection.setAutoCommit(false);
             String updateComments = "UPDATE comments SET text = ? WHERE id = ?;";
@@ -15,7 +15,7 @@ public class Censorship {
                  PreparedStatement psComments = connection.prepareStatement(updateComments);
                  PreparedStatement psThreads = connection.prepareStatement(updateThreads)) {
 
-                FileLoader fileLoader = new FileLoader("textboard-jdbc-censor\\blacklist.csv");
+                FileLoader fileLoader = new FileLoader("");
                 List<String> blackList = fileLoader.getBlackList();
                 ResultSet commentsSet = statement.executeQuery("SELECT * FROM comments;");
 
@@ -54,5 +54,4 @@ public class Censorship {
             e.printStackTrace();
         }
     }
-
 }
