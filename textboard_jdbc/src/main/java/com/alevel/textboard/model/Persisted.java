@@ -2,7 +2,7 @@ package com.alevel.textboard.model;
 
 import java.util.Objects;
 
-public class Persisted<ID, T> {
+public final class Persisted<ID, T> {
 
     private final ID id;
 
@@ -13,10 +13,18 @@ public class Persisted<ID, T> {
         this.value = value;
     }
 
+    public ID getId() {
+        return id;
+    }
+
+    public T getValue() {
+        return value;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Persisted)) return false;
         Persisted<?, ?> persisted = (Persisted<?, ?>) o;
         return Objects.equals(persisted.id, id);
     }

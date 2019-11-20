@@ -11,9 +11,10 @@ public interface DAO<ID, T> {
 
     Optional<Persisted<ID, T>> findById(ID id);
 
-    void save(T entity);
+    ID save(T entity);
 
     void update(ID id, T entity);
 
     void delete(ID id);
+
 }
