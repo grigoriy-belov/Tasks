@@ -19,7 +19,8 @@ public final class Comment {
             Persisted<Long, User> author,
             Persisted<Long, Thread> thread,
             Persisted<Long, Comment> parentComment,
-            String text
+            String text,
+            List<Comment> replies
     ) {
         this.author = author;
         this.thread = thread;
@@ -28,7 +29,7 @@ public final class Comment {
         if (t != null) {
             t.getReplies().add(this);
         }
-        this.replies = new ArrayList<>();
+        this.replies = replies;
         this.parentComment = parentComment;
         if (parentComment != null) {
             Comment parent = parentComment.getValue();
@@ -56,5 +57,9 @@ public final class Comment {
 
     public String getText() {
         return text;
+    }
+
+    public void addReply(Comment comment) {
+        replies.add(comment);
     }
 }

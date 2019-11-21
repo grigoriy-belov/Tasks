@@ -17,25 +17,30 @@ public class FindThreadsByNameRunner {
         try (Connection c = ConnectionFactory.connect()) {
             ThreadDAO threadDAO = new JDBCThreadDAO(c);
             CommentDAO commentDAO = new JDBCCommentDAO(c);
-            List<Persisted<Long, Thread>> threads = threadDAO.findByName("textboard");
+            List<Persisted<Long, Thread>> threads = threadDAO.findByName("world");
             StringBuilder sb = new StringBuilder();
 
             for (Persisted<Long, Thread> thread : threads) {
 
                 User user = thread.getValue().getUser();
-                sb.append(thread.getValue().getTitle().toUpperCase());
-                sb.append(" (").append(user.getNickname()).append(")");
-                sb.append("\n").append(thread.getValue().getText());
-                sb.append("\n");
+                sb.append(thread.getValue().getTitle().toUpperCase())
+                        .append(" (").append(user.getNickname()).append(")")
+                        .append("\n").append(thread.getValue().getText())
+                        .append("\n");
 
                 List<Persisted<Long, Comment>> comments = commentDAO.findByThreadId(thread.getId());
 
                 for (Persisted<Long, Comment> comment : comments) {
                     User author = comment.getValue().getAuthor().getValue();
                     String text = comment.getValue().getText();
-                    sb.append("\t");
-                    sb.append(author.getNickname()).append(": ");
-                    sb.append(text).append("\n");
+                    if (comment.getValue().getParentComment() == null) {
+                        sb.append(author.getNickname()).append(": ")
+                                .append(text).append("\n");
+                        for (Comment reply : comment.getValue().getReplies()) {
+                            sb.append("--- ").append(reply.getAuthor())
+                                    .append(": ").append(reply.getText());
+                        }
+                    }
                 }
                 sb.append("\n");
             }
