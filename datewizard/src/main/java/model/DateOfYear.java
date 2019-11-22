@@ -45,7 +45,7 @@ public final class DateOfYear {
 
     @Override
     public String toString() {
-        return "DateOfYear{" +
+        return "model.DateOfYear{" +
                 "month=" + month +
                 ", dayOfWeek=" + dayOfWeek +
                 ", dayOfMonth=" + dayOfMonth +

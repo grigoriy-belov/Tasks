@@ -1,10 +1,10 @@
-package dao.comment;
+package com.alevel.textboard.dao.comment;
 
-import dao.DataAccessException;
-import model.Comment;
-import model.Persisted;
-import model.Thread;
-import model.User;
+import com.alevel.textboard.dao.DataAccessException;
+import com.alevel.textboard.model.Comment;
+import com.alevel.textboard.model.Persisted;
+import com.alevel.textboard.model.Thread;
+import com.alevel.textboard.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

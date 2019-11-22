@@ -1,6 +1,5 @@
-package model;
+package com.alevel.textboard.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class Comment {

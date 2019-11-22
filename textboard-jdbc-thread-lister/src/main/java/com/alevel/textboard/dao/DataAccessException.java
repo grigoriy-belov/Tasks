@@ -1,4 +1,4 @@
-package dao;
+package com.alevel.textboard.dao;
 
 public class DataAccessException extends RuntimeException {
     public DataAccessException(Throwable cause) {

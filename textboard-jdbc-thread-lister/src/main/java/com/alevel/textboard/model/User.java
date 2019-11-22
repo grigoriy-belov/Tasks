@@ -1,4 +1,4 @@
-package model;
+package com.alevel.textboard.model;
 
 public final class User {
 

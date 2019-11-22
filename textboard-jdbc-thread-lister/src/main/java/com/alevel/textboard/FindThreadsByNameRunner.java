@@ -1,11 +1,13 @@
-import dao.comment.CommentDAO;
-import dao.comment.JDBCCommentDAO;
-import dao.thread.JDBCThreadDAO;
-import dao.thread.ThreadDAO;
-import model.Comment;
-import model.Persisted;
-import model.Thread;
-import model.User;
+package com.alevel.textboard;
+
+import com.alevel.textboard.dao.comment.CommentDAO;
+import com.alevel.textboard.dao.comment.JDBCCommentDAO;
+import com.alevel.textboard.dao.thread.JDBCThreadDAO;
+import com.alevel.textboard.dao.thread.ThreadDAO;
+import com.alevel.textboard.model.Comment;
+import com.alevel.textboard.model.Persisted;
+import com.alevel.textboard.model.Thread;
+import com.alevel.textboard.model.User;
 
 import java.io.IOException;
 import java.sql.Connection;

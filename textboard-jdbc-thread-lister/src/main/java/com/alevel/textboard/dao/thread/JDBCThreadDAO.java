@@ -1,9 +1,9 @@
-package dao.thread;
+package com.alevel.textboard.dao.thread;
 
-import dao.DataAccessException;
-import model.Persisted;
-import model.User;
-import model.Thread;
+import com.alevel.textboard.dao.DataAccessException;
+import com.alevel.textboard.model.Persisted;
+import com.alevel.textboard.model.User;
+import com.alevel.textboard.model.Thread;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
