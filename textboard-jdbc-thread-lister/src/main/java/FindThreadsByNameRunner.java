@@ -15,7 +15,7 @@ import java.util.List;
 public class FindThreadsByNameRunner {
     public static void main(String[] args) throws IOException, SQLException {
         try (Connection c = ConnectionFactory.connect()) {
-            System.out.println(getThreadsOutput("hello", new JDBCThreadDAO(c), new JDBCCommentDAO(c)));
+            System.out.println(getThreadsOutput(args[0], new JDBCThreadDAO(c), new JDBCCommentDAO(c)));
         }
     }
 
@@ -29,7 +29,7 @@ public class FindThreadsByNameRunner {
             sb.append(thread.getValue().getTitle().toUpperCase())
                     .append(" (").append(user.getNickname()).append(")")
                     .append("\n").append(thread.getValue().getText())
-                    .append("\n");
+                    .append("\n\n");
 
             List<Persisted<Long, Comment>> comments = commentDAO.findByThreadId(thread.getId());
 
@@ -42,16 +42,14 @@ public class FindThreadsByNameRunner {
                     getRepliesOutput(sb, comment.getValue(), 1);
                 }
             }
-            sb.append("\n");
+            sb.append("----------------------------------------------------------------------\n\n");
         }
         return sb.toString();
     }
 
     private static String getRepliesOutput(StringBuilder sb, Comment comment, int indent) {
         for (Comment reply : comment.getReplies()) {
-            for (int i = 0; i < indent; i++) {
-                sb.append("--- ");
-            }
+            sb.append("--- ".repeat(Math.max(0, indent)));
             sb.append(reply.getAuthor().getValue().getNickname())
                     .append(": ").append(reply.getText()).append("\n");
             if (reply.getReplies() != null) {
