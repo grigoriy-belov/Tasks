@@ -27,3 +27,4 @@ hs_err_pid*
 /backwardlinkedlist/target/
 /datewizard/target/
 /textboard-jdbc-censor/blacklist.csv
+/textboard-jdbc-thread-lister/target/
