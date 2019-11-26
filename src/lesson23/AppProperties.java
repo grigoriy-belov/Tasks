@@ -6,7 +6,11 @@ import java.util.Properties;
 
 public class AppProperties {
 
-    private static final String PROPERTIES_FILE = "app.properties";
+    private static String propertiesFile;
+
+    public AppProperties(String path) {
+        propertiesFile = path;
+    }
 
     @PropertyKey("connections.limit")
     public String maxConnections;
@@ -20,11 +24,11 @@ public class AppProperties {
     public String login;
 
 
-    public static AppProperties initialize() {
+    public static AppProperties initialize(String path) {
         AppProperties appProperties = null;
         try {
-            Properties properties = PropertiesLoader.loadProperties(PROPERTIES_FILE);
-            appProperties = new AppProperties();
+            appProperties = new AppProperties(path);
+            Properties properties = PropertiesLoader.loadProperties(propertiesFile);
             Class<?> clazz = appProperties.getClass();
 
             for (Field field : clazz.getDeclaredFields()) {
