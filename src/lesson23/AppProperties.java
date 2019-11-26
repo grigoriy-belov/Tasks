@@ -8,16 +8,6 @@ public class AppProperties {
 
     private static final String PROPERTIES_FILE = "app.properties";
 
-    public AppProperties() {
-    }
-
-    public static void main(String[] args) {
-        AppProperties appProperties = AppProperties.initialize();
-        System.out.println(appProperties.maxConnections);
-        System.out.println(appProperties.serverPort);
-        System.out.println(appProperties.url);
-    }
-
     @PropertyKey("connections.limit")
     public String maxConnections;
 
@@ -26,6 +16,8 @@ public class AppProperties {
 
     @PropertyKey("url")
     public String url;
+
+    public String login;
 
 
     public static AppProperties initialize() {
@@ -37,7 +29,8 @@ public class AppProperties {
 
             for (Field field : clazz.getDeclaredFields()) {
                 if (field.isAnnotationPresent(PropertyKey.class)) {
-                    field.set(appProperties, field.getAnnotation(PropertyKey.class).value());
+                    String value = properties.getProperty(field.getAnnotation(PropertyKey.class).value());
+                    field.set(appProperties, value);
                 }
             }
         } catch (IOException | IllegalAccessException e) {
