@@ -28,3 +28,4 @@ hs_err_pid*
 /datewizard/target/
 /textboard-jdbc-censor/blacklist.csv
 /textboard-jdbc-thread-lister/target/
+/csvparser/target/

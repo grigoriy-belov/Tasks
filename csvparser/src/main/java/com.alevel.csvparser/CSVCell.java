@@ -1,7 +1,13 @@
 package com.alevel.csvparser;
 
+import java.util.Objects;
+
 public class CSVCell {
     private String value;
+
+    public CSVCell(String value) {
+        this.value = value;
+    }
 
     public String get() {
         return value;
@@ -23,5 +29,23 @@ public class CSVCell {
         return Boolean.parseBoolean(value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CSVCell csvCell = (CSVCell) o;
+        return Objects.equals(value, csvCell.value);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(value);
+    }
+
+    @Override
+    public String toString() {
+        return "CSVCell{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

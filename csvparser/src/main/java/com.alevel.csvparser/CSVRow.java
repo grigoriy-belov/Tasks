@@ -6,10 +6,22 @@ import java.util.RandomAccess;
 
 public class CSVRow {
 
-    private final List<CSVCell> cells = new ArrayList<>();
+    private final List<CSVCell> cells;
 
-    public void append(CSVCell value) {
-        cells.add(value);
+    public CSVRow() {
+        cells = new ArrayList<>();
+    }
+
+    public CSVRow(List<String> cells) {
+        this.cells = new ArrayList<>(cells.size());
+        for (String cell : cells) {
+            this.cells.add(new CSVCell(cell));
+
+        }
+    }
+
+    public void append(String value) {
+        cells.add(new CSVCell(value));
     }
 
     public int size() {
@@ -20,7 +32,11 @@ public class CSVRow {
         return cells.isEmpty();
     }
 
-    public List<String> asList() {
+    public List<CSVCell> asList() {
         return new ArrayList<>(cells);
+    }
+
+    public CSVCell get(int index) {
+        return cells.get(index);
     }
 }

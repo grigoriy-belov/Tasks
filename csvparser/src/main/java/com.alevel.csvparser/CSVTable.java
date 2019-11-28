@@ -15,7 +15,7 @@ public final class CSVTable {
         int columns = header.size();
         this.header = new HashMap<>(columns);
         for (int i = 0; i < columns; i++) {
-            this.header.put(header.get(i), i);
+            this.header.put(header.get(i).get(), i);
         }
         this.rows = new ArrayList<>();
     }
@@ -24,8 +24,16 @@ public final class CSVTable {
         return rows.get(index);
     }
 
+    public List<CSVRow> getRows() {
+        return rows;
+    }
+
+    public void addRow(CSVRow row) {
+        rows.add(row);
+    }
+
     public CSVCell getCell(int row, String column) {
-        int index = header.get(column);
+        int index = getColumnIndex(column);
         return rows.get(row).get(index);
     }
 
