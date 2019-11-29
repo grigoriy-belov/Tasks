@@ -6,11 +6,13 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesLoader {
-
-    public static Properties loadProperties(String resourceFileName) throws IOException {
-        Properties properties = new Properties();
-        try (InputStream props = new FileInputStream(resourceFileName)) {
+    public Properties load(String path) throws PropertiesLoadException {
+        Properties properties;
+        try (InputStream props = new FileInputStream(path)) {
+            properties = new Properties();
             properties.load(props);
+        } catch (IOException e) {
+            throw new PropertiesLoadException(e);
         }
         return properties;
     }
