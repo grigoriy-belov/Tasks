@@ -29,3 +29,4 @@ hs_err_pid*
 /textboard-jdbc-censor/blacklist.csv
 /textboard-jdbc-thread-lister/target/
 /csvparser/target/
+/saleshibernate/target/
