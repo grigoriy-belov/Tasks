@@ -3,27 +3,31 @@ package com.alevel.sales;
 import com.alevel.sales.entity.DailyReport;
 import com.alevel.sales.entity.Department;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class CSVExportReportHelper {
 
-    private final String path = "C:\\annual_report.csv";
+    private static final String path = "C:\\annual_report.csv";
 
-    private File annualReport;
+    public static void export(List<Department> departments) {
 
-    public CSVExportReportHelper() {
-        annualReport = new File(path);
-    }
-
-    public void export(List<Department> departments) {
-        try ()
-        for (Department department : departments) {
-            long profit = 0;
-            for (DailyReport dailyReport : department.getDailyReports()) {
-                profit += dailyReport.getProfit();
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(path))) {
+            for (Department department : departments) {
+                long profit = 0;
+                for (DailyReport dailyReport : department.getDailyReports()) {
+                    profit += dailyReport.getProfit();
+                }
+                bufferedWriter.write(department.getName() + "," + profit);
+                bufferedWriter.newLine();
             }
-            System.out.println(department.getName() + ": " + profit);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 }

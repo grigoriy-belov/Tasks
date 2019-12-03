@@ -28,10 +28,7 @@ public class SalesApp {
 
                 Query<Department> listDepartments = session.createQuery("from Department", Department.class);
                 List<Department> departments = listDepartments.list();
-                System.out.println(departments.get(0).getName());
-                System.out.println(departments.get(1).getName());
-
-
+                CSVExportReportHelper.export(departments);
 
                 transaction.commit();
             } catch (Exception e) {
