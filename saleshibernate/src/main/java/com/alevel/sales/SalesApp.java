@@ -31,16 +31,7 @@ public class SalesApp {
                 System.out.println(departments.get(0).getName());
                 System.out.println(departments.get(1).getName());
 
-                Department department1 = departments.get(0);
-                Department department2 = departments.get(1);
 
-                for (Department department : departments) {
-                    long profit = 0;
-                    for (DailyReport dailyReport : department.getDailyReports()) {
-                        profit += dailyReport.getProfit();
-                    }
-                    System.out.println(department.getName() + ": " + profit);
-                }
 
                 transaction.commit();
             } catch (Exception e) {
