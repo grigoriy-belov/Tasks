@@ -2,11 +2,11 @@ package com.alevel.sales.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@Table(name = "departments")
+@Table(name = "daily_reports")
 public class DailyReport {
 
     @Id
@@ -15,19 +15,19 @@ public class DailyReport {
     private int id;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
     @Column(name = "profit")
-    private BigDecimal profit;
+    private Long profit;
 
     public DailyReport() {
     }
 
-    public DailyReport(Date date, Department department, BigDecimal profit) {
+    public DailyReport(LocalDate date, Department department, Long profit) {
         this.date = date;
         this.department = department;
         this.profit = profit;
@@ -41,11 +41,11 @@ public class DailyReport {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -57,11 +57,11 @@ public class DailyReport {
         this.department = department;
     }
 
-    public BigDecimal getProfit() {
+    public Long getProfit() {
         return profit;
     }
 
-    public void setProfit(BigDecimal profit) {
+    public void setProfit(Long profit) {
         this.profit = profit;
     }
 
@@ -85,7 +85,7 @@ public class DailyReport {
     public String toString() {
         return "com.alevel.sales.entity.DailyReport{" +
                 "id=" + id +
-                ", date=" + date +
+                ", date=" + date.toString() +
                 ", department=" + department +
                 ", profit=" + profit +
                 '}';

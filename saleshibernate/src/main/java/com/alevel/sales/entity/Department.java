@@ -25,10 +25,9 @@ public class Department {
     public Department() {
     }
 
-    public Department(String name, String description, List<DailyReport> dailyReports) {
+    public Department(String name, String description) {
         this.name = name;
         this.description = description;
-        this.dailyReports = dailyReports;
     }
 
     public long getId() {

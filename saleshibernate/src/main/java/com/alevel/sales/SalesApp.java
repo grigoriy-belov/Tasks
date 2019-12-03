@@ -1,5 +1,6 @@
 package com.alevel.sales;
 
+import com.alevel.sales.entity.DailyReport;
 import com.alevel.sales.entity.Department;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,8 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 public class SalesApp {
@@ -25,7 +28,19 @@ public class SalesApp {
 
                 Query<Department> listDepartments = session.createQuery("from Department", Department.class);
                 List<Department> departments = listDepartments.list();
-                System.out.println(departments);
+                System.out.println(departments.get(0).getName());
+                System.out.println(departments.get(1).getName());
+
+                Department department1 = departments.get(0);
+                Department department2 = departments.get(1);
+
+                for (Department department : departments) {
+                    long profit = 0;
+                    for (DailyReport dailyReport : department.getDailyReports()) {
+                        profit += dailyReport.getProfit();
+                    }
+                    System.out.println(department.getName() + ": " + profit);
+                }
 
                 transaction.commit();
             } catch (Exception e) {
