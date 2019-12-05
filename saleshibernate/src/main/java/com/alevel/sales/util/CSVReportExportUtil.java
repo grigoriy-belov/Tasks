@@ -1,4 +1,4 @@
-package com.alevel.sales;
+package com.alevel.sales.util;
 
 import com.alevel.sales.entity.DailyReport;
 import com.alevel.sales.entity.Department;
@@ -11,11 +11,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class CSVExportReportHelper {
+public class CSVReportExportUtil {
 
     private static final Path path = Paths.get("D:\\annual_report.csv");
 
-    public static void export(List<Department> departments, List<DailyReport> dailyReports , int year) {
+    public static void export(List<Department> departments, List<DailyReport> dailyReports) {
 
         try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path)) {
             bufferedWriter.write("Department, Profit");
