@@ -10,7 +10,6 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,6 +17,14 @@ public class SalesApp {
     public static void main(String[] args) {
 
         Logger logger = LoggerFactory.getLogger(SalesApp.class);
+
+        int year = 0;
+        try {
+            year = Integer.parseInt(args[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("Missing or wrong year argument");
+        }
 
         Configuration configuration = new Configuration().configure();
 
@@ -28,7 +35,15 @@ public class SalesApp {
 
                 Query<Department> listDepartments = session.createQuery("from Department", Department.class);
                 List<Department> departments = listDepartments.list();
-                CSVExportReportHelper.export(departments);
+
+                String hql = "from DailyReport as d where d.date between :startDateParam and :endDateParam";
+                Query<DailyReport> listDailyReports = session.createQuery(hql, DailyReport.class);
+                listDailyReports.setParameter("startDateParam", LocalDate.of(year, 1, 1));
+                listDailyReports.setParameter("endDateParam", LocalDate.of(year, 12, 31));
+                List<DailyReport> dailyReports = listDailyReports.list();
+
+                CSVExportReportHelper.export(departments, dailyReports, year);
+
 
                 transaction.commit();
             } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.alevel.sales.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,18 +10,18 @@ import java.util.Objects;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @OneToMany(mappedBy = "department")
-    private List<DailyReport> dailyReports;
+    private List<DailyReport> dailyReports = new ArrayList<>();
 
     public Department() {
     }

@@ -7,21 +7,27 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 public class CSVExportReportHelper {
 
-    private static final String path = "C:\\annual_report.csv";
+    private static final Path path = Paths.get("D:\\annual_report.csv");
 
-    public static void export(List<Department> departments) {
+    public static void export(List<Department> departments, List<DailyReport> dailyReports , int year) {
 
-        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(Paths.get(path))) {
+        try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path)) {
+            bufferedWriter.write("Department, Profit");
+            bufferedWriter.newLine();
             for (Department department : departments) {
                 long profit = 0;
-                for (DailyReport dailyReport : department.getDailyReports()) {
-                    profit += dailyReport.getProfit();
+                for (DailyReport dailyReport : dailyReports) {
+                    if (department.equals(dailyReport.getDepartment())) {
+                        profit += dailyReport.getProfit();
+                    }
                 }
+                profit /= 100;
                 bufferedWriter.write(department.getName() + "," + profit);
                 bufferedWriter.newLine();
             }
