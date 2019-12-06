@@ -12,7 +12,6 @@ public class PromotionsForAccount {
         SessionFactory sessionFactory = HibernateHelper.createSessionFactory();
         Session session = sessionFactory.openSession();
         try (sessionFactory; session) {
-            session.beginTransaction();
             String phoneNumber = args[0];
             Account account = session.bySimpleNaturalId(Account.class).load(phoneNumber);
             Tariff tariff = account.getTariff();
@@ -20,8 +19,6 @@ public class PromotionsForAccount {
             for (Promotion promotion : tariff.getPromotions()) {
                 System.out.println(promotion.getName() + ": " + promotion.getDescription());
             }
-
-            session.getTransaction().commit();
         }
     }
 }
