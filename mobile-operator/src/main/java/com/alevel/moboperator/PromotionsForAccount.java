@@ -4,13 +4,8 @@ import com.alevel.moboperator.entity.Account;
 import com.alevel.moboperator.entity.Promotion;
 import com.alevel.moboperator.entity.Tariff;
 import com.alevel.moboperator.util.HibernateHelper;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.query.Query;
-
-import java.util.List;
 
 public class PromotionsForAccount {
     public static void main(String[] args) {
