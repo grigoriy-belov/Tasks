@@ -2,7 +2,6 @@ package com.alevel.sales;
 
 import com.alevel.sales.dao.SalesDAO;
 import com.alevel.sales.dao.SalesDAOImpl;
-import com.alevel.sales.util.CSVReportExportUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +18,6 @@ public class SalesApp {
         }
 
         SalesDAO salesDAO = new SalesDAOImpl();
-        CSVReportExportUtil.export(salesDAO.getDepartments(), salesDAO.getDailyReportsByYear(year));
+        CSVReportExportService.export(salesDAO.getDepartments(), year);
     }
 }
