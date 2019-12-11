@@ -82,10 +82,9 @@ public class DailyReport {
 
     @Override
     public String toString() {
-        return "com.alevel.sales.entity.DailyReport{" +
+        return "DailyReport{" +
                 "id=" + id +
-                ", date=" + date.toString() +
-                ", department=" + department +
+                ", date=" + date +
                 ", profit=" + profit +
                 '}';
     }

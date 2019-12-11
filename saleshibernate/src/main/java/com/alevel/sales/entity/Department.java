@@ -81,11 +81,10 @@ public class Department {
 
     @Override
     public String toString() {
-        return "com.alevel.sales.entity.Department{" +
+        return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", dailyReports=" + dailyReports +
+                ", description='" + description +
                 '}';
     }
 }

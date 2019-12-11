@@ -18,6 +18,6 @@ public class SalesApp {
         }
 
         SalesDAO salesDAO = new SalesDAOImpl();
-        CSVReportExportService.export(salesDAO.getDepartments(), year);
+        CSVReportExportService.export(salesDAO.getDailyReportsForYear(year));
     }
 }
