@@ -2,6 +2,8 @@ package com.alevel.moboperator.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "call_log")
@@ -15,9 +17,18 @@ public class Call {
     @JoinColumn(name = "from_account_id", nullable = false)
     private Account fromAcc;
 
-    @ManyToOne
-    @JoinColumn(name = "to_acc_id", nullable = false)
-    private Account toAcc;
+    @ManyToMany
+    @JoinTable(
+            name = "conference_call_participants",
+            joinColumns = @JoinColumn(
+                    name = "account_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = ""
+            )
+    )
+    private List<Account> toAcc = new ArrayList<>();
 
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
@@ -28,9 +39,8 @@ public class Call {
     public Call() {
     }
 
-    public Call(Account fromAcc, Account toAcc, LocalDateTime startTime, LocalDateTime endTime) {
+    public Call(Account fromAcc, LocalDateTime startTime, LocalDateTime endTime) {
         this.fromAcc = fromAcc;
-        this.toAcc = toAcc;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -51,14 +61,6 @@ public class Call {
         this.fromAcc = fromAcc;
     }
 
-    public Account getToAcc() {
-        return toAcc;
-    }
-
-    public void setToAcc(Account toAcc) {
-        this.toAcc = toAcc;
-    }
-
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -73,5 +75,13 @@ public class Call {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public List<Account> getToAcc() {
+        return toAcc;
+    }
+
+    public void setToAcc(List<Account> toAcc) {
+        this.toAcc = toAcc;
     }
 }
