@@ -3,6 +3,8 @@ package com.alevel.moboperator.entity;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -26,6 +28,12 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tariff_id", nullable = false)
     private Tariff tariff;
+
+    @OneToMany(mappedBy = "fromAcc", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Call> outgoingCalls = new ArrayList<>();
+
+    @OneToMany(mappedBy = "toAcc", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Call> incomingCalls = new ArrayList<>();
 
     public Account() {
     }
@@ -75,5 +83,13 @@ public class Account {
 
     public void setTariff(Tariff tariff) {
         this.tariff = tariff;
+    }
+
+    public List<Call> getOutgoingCalls() {
+        return outgoingCalls;
+    }
+
+    public void setOutgoingCalls(List<Call> outgoingCalls) {
+        this.outgoingCalls = outgoingCalls;
     }
 }
