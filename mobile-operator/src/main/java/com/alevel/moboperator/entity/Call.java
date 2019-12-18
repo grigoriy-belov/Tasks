@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "call_log")
+@Table(name = "calls")
 public class Call {
 
     @Id
@@ -17,18 +17,13 @@ public class Call {
     @JoinColumn(name = "from_account_id", nullable = false)
     private Account fromAcc;
 
-    @ManyToMany
+    @ManyToMany (cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "conference_call_participants",
-            joinColumns = @JoinColumn(
-                    name = "account_id",
-                    referencedColumnName = "id"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = ""
-            )
+            name = "calls_accounts",
+            joinColumns = { @JoinColumn(name = "call_id")},
+            inverseJoinColumns = { @JoinColumn(name = "to_account_id")}
     )
-    private List<Account> toAcc = new ArrayList<>();
+    private List<Account> toAccList = new ArrayList<>();
 
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
@@ -61,6 +56,14 @@ public class Call {
         this.fromAcc = fromAcc;
     }
 
+    public List<Account> getToAccList() {
+        return toAccList;
+    }
+
+    public void setToAccList(List<Account> toAccList) {
+        this.toAccList = toAccList;
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -77,11 +80,12 @@ public class Call {
         this.endTime = endTime;
     }
 
-    public List<Account> getToAcc() {
-        return toAcc;
+    public void addToAccList(Account account) {
+        toAccList.add(account);
     }
 
-    public void setToAcc(List<Account> toAcc) {
-        this.toAcc = toAcc;
+    public void removeFromAccList(Account account) {
+        toAccList.remove(account);
     }
 }
+

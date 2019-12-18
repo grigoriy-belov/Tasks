@@ -32,7 +32,7 @@ public class Account {
     @OneToMany(mappedBy = "fromAcc", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Call> outgoingCalls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "toAcc", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(mappedBy = "toAccList")
     private List<Call> incomingCalls = new ArrayList<>();
 
     public Account() {
@@ -91,5 +91,13 @@ public class Account {
 
     public void setOutgoingCalls(List<Call> outgoingCalls) {
         this.outgoingCalls = outgoingCalls;
+    }
+
+    public List<Call> getIncomingCalls() {
+        return incomingCalls;
+    }
+
+    public void setIncomingCalls(List<Call> incomingCalls) {
+        this.incomingCalls = incomingCalls;
     }
 }

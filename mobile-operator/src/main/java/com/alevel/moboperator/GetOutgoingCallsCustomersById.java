@@ -31,8 +31,11 @@ public class GetOutgoingCallsCustomersById {
                 List<Call> outgoingCalls = customerAccount.getOutgoingCalls();
 
                 for (Call outgoingCall : outgoingCalls) {
-                    Customer customer = outgoingCall.getToAcc().getCustomer();
-                    receivers.put(customer.getId(), customer);
+                    List<Account> accounts = outgoingCall.getToAccList();
+                    for (Account account : accounts) {
+                        Customer customer = account.getCustomer();
+                        receivers.put(customer.getId(), customer);
+                    }
                 }
             }
 
