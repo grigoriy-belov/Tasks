@@ -24,9 +24,6 @@ out/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/backwardlinkedlist/target/
-/datewizard/target/
-/textboard-jdbc-censor/blacklist.csv
-/textboard-jdbc-thread-lister/target/
-/csvparser/target/
-/saleshibernate/target/
+
+*/target/*
+*.iml
