@@ -32,10 +32,16 @@ public class LikesCountAndUsers {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<PhotoLike> cr = cb.createQuery(PhotoLike.class);
             Root<PhotoLike> root = cr.from(PhotoLike.class);
-            cr.select(root).where(cb.equal(root.get("id"), entityId));
+            cr.select(root).where(cb.equal(root.get("targetPhoto"), entityId));
 
             Query<PhotoLike> query = session.createQuery(cr);
             List<PhotoLike> results = query.getResultList();
+
+            log.info("Comments count: " + results.size());
+            log.info("Users liked:");
+            for (PhotoLike result : results) {
+                log.info(result.getAuthor().getName());
+            }
 
             transaction.commit();
         } catch (Exception e) {
