@@ -24,25 +24,25 @@ public class WithdrawLike {
 
             User user = session.get(User.class, userId);
 
-            if (entity == UserLike.class) {
-                for (UserLike like : user.getUserLikes()) {
-                    if (like.getId() == targetId) {
-                        user.removeUserLike(like);
-                    }
-                }
-            } else if (entity == PhotoLike.class) {
-                for (PhotoLike like : user.getPhotoLikes()) {
-                    if (like.getId() == targetId) {
-                        user.removePhotoLike(like);
-                    }
-                }
-            } else if (entity == Comment.class) {
-                for (CommentLike like : user.getCommentLikes()) {
-                    if (like.getId() == targetId) {
-                        user.removeCommentLike(like);
-                    }
-                }
-            }
+//            if (entity == UserLike.class) {
+//                for (UserLike like : user.getUserLikes()) {
+//                    if (like.getId() == targetId) {
+//                        user.removeUserLike(like);
+//                    }
+//                }
+//            } else if (entity == PhotoLike.class) {
+//                for (PhotoLike like : user.getPhotoLikes()) {
+//                    if (like.getId() == targetId) {
+//                        user.removePhotoLike(like);
+//                    }
+//                }
+//            } else if (entity == Comment.class) {
+//                for (CommentLike like : user.getCommentLikes()) {
+//                    if (like.getId() == targetId) {
+//                        user.removeCommentLike(like);
+//                    }
+//                }
+//            }
 
             session.save(user);
 

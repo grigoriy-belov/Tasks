@@ -68,17 +68,17 @@ public class PopulateWithExampleData {
             session.save(commentLike2);
             session.save(commentLike3);
 
-            john.addLike(like1);
-            samantha.addLike(like2);
-            robert.addLike(like3);
-
-            john.addLike(photoLike1);
-            samantha.addLike(photoLike2);
-            robert.addLike(photoLike3);
-
-            john.addLike(commentLike1);
-            samantha.addLike(commentLike2);
-            robert.addLike(commentLike3);
+//            john.addLike(like1);
+//            samantha.addLike(like2);
+//            robert.addLike(like3);
+//
+//            john.addLike(photoLike1);
+//            samantha.addLike(photoLike2);
+//            robert.addLike(photoLike3);
+//
+//            john.addLike(commentLike1);
+//            samantha.addLike(commentLike2);
+//            robert.addLike(commentLike3);
 
             transaction.commit();
         } catch (Exception e) {

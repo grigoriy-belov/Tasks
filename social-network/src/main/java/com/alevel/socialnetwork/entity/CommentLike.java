@@ -4,7 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comment_likes")
-public class CommentLike extends _Like {
+public class CommentLike  {
+
+    @OneToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
     @ManyToOne
     @JoinColumn(name = "target_comment_id")
@@ -14,7 +18,6 @@ public class CommentLike extends _Like {
     }
 
     public CommentLike(User author, Comment targetComment) {
-        super(author);
         this.targetComment = targetComment;
     }
 

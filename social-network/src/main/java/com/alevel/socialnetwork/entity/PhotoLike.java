@@ -4,7 +4,11 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "photo_likes")
-public class PhotoLike extends _Like {
+public class PhotoLike {
+
+    @OneToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
     @ManyToOne
     @JoinColumn(name = "target_photo_id")
@@ -14,7 +18,6 @@ public class PhotoLike extends _Like {
     }
 
     public PhotoLike(User author, Photo targetPhoto) {
-        super(author);
         this.targetPhoto = targetPhoto;
     }
 
@@ -24,5 +27,13 @@ public class PhotoLike extends _Like {
 
     public void setTargetPhoto(Photo targetPhoto) {
         this.targetPhoto = targetPhoto;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
