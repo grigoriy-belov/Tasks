@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Like {
+public class _Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +14,10 @@ public class Like {
     @JoinColumn(name = "author_id", nullable = false)
     User author;
 
-    public Like() {
+    public _Like() {
     }
 
-    public Like(User author) {
+    public _Like(User author) {
         this.author = author;
     }
 

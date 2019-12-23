@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "photo_likes")
-public class PhotoLike extends Like {
+public class PhotoLike extends _Like {
 
     @OneToOne
     @JoinColumn(name = "target_photo_id")
