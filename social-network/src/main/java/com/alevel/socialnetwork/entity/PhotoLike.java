@@ -6,12 +6,17 @@ import javax.persistence.*;
 @Table(name = "photo_likes")
 public class PhotoLike {
 
+    @EmbeddedId
+    private PhotoLikeId id;
+
     @OneToOne
     @JoinColumn(name = "author_id")
+    @MapsId("authorId")
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "target_photo_id")
+    @MapsId("targetPhotoId")
     private Photo targetPhoto;
 
     public PhotoLike() {
@@ -35,5 +40,13 @@ public class PhotoLike {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public PhotoLikeId getId() {
+        return id;
+    }
+
+    public void setId(PhotoLikeId id) {
+        this.id = id;
     }
 }

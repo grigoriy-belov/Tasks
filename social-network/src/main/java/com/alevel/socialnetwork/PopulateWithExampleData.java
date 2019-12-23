@@ -44,6 +44,14 @@ public class PopulateWithExampleData {
             session.save(comment2);
             session.save(comment3);
 
+            PhotoLike photoLike1 = new PhotoLike(john, photo2);
+            PhotoLike photoLike2 = new PhotoLike(samantha, photo1);
+            PhotoLike photoLike3 = new PhotoLike(robert, photo2);
+
+            session.save(photoLike1);
+            session.save(photoLike2);
+            session.save(photoLike3);
+
             UserLike like1 = new UserLike(john, samantha);
             UserLike like2 = new UserLike(samantha, john);
             UserLike like3 = new UserLike(robert, samantha);
@@ -52,13 +60,6 @@ public class PopulateWithExampleData {
             session.save(like2);
             session.save(like3);
 
-            PhotoLike photoLike1 = new PhotoLike(john, photo2);
-            PhotoLike photoLike2 = new PhotoLike(samantha, photo1);
-            PhotoLike photoLike3 = new PhotoLike(robert, photo2);
-
-            session.save(photoLike1);
-            session.save(photoLike2);
-            session.save(photoLike3);
 
             CommentLike commentLike1 = new CommentLike(john, comment2);
             CommentLike commentLike2 = new CommentLike(samantha, comment1);
@@ -68,17 +69,17 @@ public class PopulateWithExampleData {
             session.save(commentLike2);
             session.save(commentLike3);
 
-//            john.addLike(like1);
-//            samantha.addLike(like2);
-//            robert.addLike(like3);
-//
-//            john.addLike(photoLike1);
-//            samantha.addLike(photoLike2);
-//            robert.addLike(photoLike3);
-//
-//            john.addLike(commentLike1);
-//            samantha.addLike(commentLike2);
-//            robert.addLike(commentLike3);
+            john.addUserLike(like1);
+            samantha.addUserLike(like2);
+            robert.addUserLike(like3);
+
+            john.addPhotoLike(photoLike1);
+            samantha.addPhotoLike(photoLike2);
+            robert.addPhotoLike(photoLike3);
+
+            john.addCommentLike(commentLike1);
+            samantha.addCommentLike(commentLike2);
+            robert.addCommentLike(commentLike3);
 
             transaction.commit();
         } catch (Exception e) {

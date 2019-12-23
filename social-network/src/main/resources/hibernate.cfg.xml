@@ -14,10 +14,12 @@
         <mapping class="com.alevel.socialnetwork.entity.Comment"/>
         <mapping class="com.alevel.socialnetwork.entity.User"/>
         <mapping class="com.alevel.socialnetwork.entity.Photo"/>
-        <mapping class="com.alevel.socialnetwork.entity._Like"/>
         <mapping class="com.alevel.socialnetwork.entity.PhotoLike"/>
         <mapping class="com.alevel.socialnetwork.entity.CommentLike"/>
         <mapping class="com.alevel.socialnetwork.entity.UserLike"/>
+        <mapping class="com.alevel.socialnetwork.entity.PhotoLikeId"/>
+        <mapping class="com.alevel.socialnetwork.entity.CommentLikeId"/>
+        <mapping class="com.alevel.socialnetwork.entity.UserLikeId"/>
     </session-factory>
 
 </hibernate-configuration>

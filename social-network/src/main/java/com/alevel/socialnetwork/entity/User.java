@@ -134,6 +134,16 @@ public class User {
         like.setAuthor(null);
     }
 
+    public void addCommentLike(CommentLike like) {
+        commentLikes.add(like);
+        like.setAuthor(this);
+    }
+
+    public void removeUserLike(CommentLike like) {
+        commentLikes.remove(like);
+        like.setAuthor(null);
+    }
+
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setAuthor(this);
