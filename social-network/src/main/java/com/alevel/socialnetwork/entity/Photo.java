@@ -4,6 +4,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    FetchType.LAZY parameter for @OneToMany associations can be used for performance optimization
+*/
+
 @Entity
 @Table(name = "photos")
 public class Photo {
@@ -21,6 +25,9 @@ public class Photo {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "targetPhoto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhotoLike> likes = new ArrayList<>();
 
     public Photo() {
     }
@@ -60,5 +67,33 @@ public class Photo {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public List<PhotoLike> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<PhotoLike> likes) {
+        this.likes = likes;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPhoto(this);
+    }
+
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setPhoto(null);
+    }
+
+    public void addLike(PhotoLike like) {
+        likes.add(like);
+        like.setTargetPhoto(this);
+    }
+
+    public void removeLike(PhotoLike like) {
+        likes.remove(like);
+        like.setTargetPhoto(null);
     }
 }

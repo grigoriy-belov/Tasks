@@ -1,6 +1,12 @@
 package com.alevel.socialnetwork.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+    FetchType.LAZY parameter for @OneToMany associations can be used for performance optimization
+*/
 
 @Entity
 @Table(name = "comments")
@@ -18,8 +24,11 @@ public class Comment {
     private User author;
 
     @ManyToOne
-    @JoinColumn(name = "photo_id", nullable = false)
+    @JoinColumn(name = "photo_id")
     private Photo photo;
+
+    @OneToMany(mappedBy = "targetComment", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CommentLike> likes = new ArrayList<>();
 
     public Comment() {
     }
@@ -60,5 +69,23 @@ public class Comment {
 
     public void setPhoto(Photo photo) {
         this.photo = photo;
+    }
+
+    public List<CommentLike> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<CommentLike> likes) {
+        this.likes = likes;
+    }
+
+    public void addLike(CommentLike like) {
+        likes.add(like);
+        like.setTargetComment(this);
+    }
+
+    public void removeLike(CommentLike like) {
+        likes.remove(like);
+        like.setTargetComment(null);
     }
 }

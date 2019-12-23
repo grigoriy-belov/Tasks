@@ -1,7 +1,6 @@
 package com.alevel.socialnetwork.entity;
 
 import javax.persistence.*;
-import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +22,10 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<_Like> likes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "targetUser",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserLike> userLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PhotoLike> photoLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommentLike> commentLikes = new ArrayList<>();
-
 
     public User() {
     }
@@ -71,6 +66,14 @@ public class User {
         this.comments = comments;
     }
 
+    public List<_Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<_Like> likes) {
+        this.likes = likes;
+    }
+
     public List<UserLike> getUserLikes() {
         return userLikes;
     }
@@ -79,50 +82,43 @@ public class User {
         this.userLikes = userLikes;
     }
 
-    public List<PhotoLike> getPhotoLikes() {
-        return photoLikes;
+    public void addLike(_Like like) {
+        likes.add(like);
+        like.setAuthor(this);
     }
 
-    public void setPhotoLikes(List<PhotoLike> photoLikes) {
-        this.photoLikes = photoLikes;
-    }
-
-    public List<CommentLike> getCommentLikes() {
-        return commentLikes;
-    }
-
-    public void setCommentLikes(List<CommentLike> commentLikes) {
-        this.commentLikes = commentLikes;
+    public void removeLike(_Like like) {
+        likes.remove(like);
+        like.setAuthor(null);
     }
 
     public void addUserLike(UserLike like) {
         userLikes.add(like);
-        like.setAuthor(this);
+        like.setTargetUser(this);
     }
 
     public void removeUserLike(UserLike like) {
         userLikes.remove(like);
-        like.setAuthor(null);
+        like.setTargetUser(null);
     }
 
-    public void addCommentLike(CommentLike like) {
-        commentLikes.add(like);
-        like.setAuthor(this);
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setAuthor(this);
     }
 
-    public void removeCommentLike(CommentLike like) {
-        commentLikes.remove(like);
-        like.setAuthor(null);
+    public void removeLike(Comment comment) {
+        comments.remove(comment);
+        comment.setAuthor(null);
     }
 
-     public void addPhotoLike(PhotoLike like) {
-        photoLikes.add(like);
-        like.setAuthor(this);
+    public void addPhoto(Photo photo) {
+        photos.add(photo);
+        photo.setAuthor(this);
     }
 
-    public void removePhotoLike(PhotoLike like) {
-        photoLikes.remove(like);
-        like.setAuthor(null);
+    public void removePhoto(Photo photo) {
+        photos.remove(photo);
+        photo.setAuthor(null);
     }
-
 }

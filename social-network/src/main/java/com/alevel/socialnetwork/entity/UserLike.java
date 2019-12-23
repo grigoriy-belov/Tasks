@@ -1,15 +1,12 @@
 package com.alevel.socialnetwork.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user_likes")
-public class UserLike extends Like {
+public class UserLike extends _Like {
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "target_user_id")
     private User targetUser;
 

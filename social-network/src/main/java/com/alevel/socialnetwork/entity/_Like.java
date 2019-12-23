@@ -2,22 +2,28 @@ package com.alevel.socialnetwork.entity;
 
 import javax.persistence.*;
 
+/*
+    InheritanceType.SINGLE_TABLE can be used for better performance, but it increases
+    the risk of data inconsistencies
+ */
+
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Like {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class _Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    @Column(name = "id", updatable = false, nullable = false)
+    protected long id;
 
     @ManyToOne
-    @JoinColumn(name = "author_id", nullable = false)
-    User author;
+    @JoinColumn(name = "user_id")
+    private User author;
 
-    public Like() {
+    _Like() {
     }
 
-    public Like(User author) {
+    _Like(User author) {
         this.author = author;
     }
 
