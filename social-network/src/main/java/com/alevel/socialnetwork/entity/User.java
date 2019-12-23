@@ -21,16 +21,16 @@ public class User {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PhotoLike> photoLikes = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<PhotoLike> photoLikes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommentLike> commentLikes = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<CommentLike> commentLikes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserLike> userLikes = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<UserLike> userLikes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "targetUser",  cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "id",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserLike> thisUserLiked = new ArrayList<>();
 
     public User() {
@@ -72,77 +72,77 @@ public class User {
         this.comments = comments;
     }
 
-    public List<UserLike> getUserLikes() {
-        return userLikes;
-    }
+//    public List<UserLike> getUserLikes() {
+//        return userLikes;
+//    }
 
-    public void setUserLikes(List<UserLike> userLikes) {
-        this.userLikes = userLikes;
-    }
+//    public void setUserLikes(List<UserLike> userLikes) {
+//        this.userLikes = userLikes;
+//    }
 
-    public List<PhotoLike> getPhotoLikes() {
-        return photoLikes;
-    }
+//    public List<PhotoLike> getPhotoLikes() {
+//        return photoLikes;
+//    }
+//
+//    public void setPhotoLikes(List<PhotoLike> photoLikes) {
+//        this.photoLikes = photoLikes;
+//    }
 
-    public void setPhotoLikes(List<PhotoLike> photoLikes) {
-        this.photoLikes = photoLikes;
-    }
+//    public List<CommentLike> getCommentLikes() {
+//        return commentLikes;
+//    }
+//
+//    public void setCommentLikes(List<CommentLike> commentLikes) {
+//        this.commentLikes = commentLikes;
+//    }
 
-    public List<CommentLike> getCommentLikes() {
-        return commentLikes;
-    }
+//    public List<UserLike> getThisUserLiked() {
+//        return thisUserLiked;
+//    }
 
-    public void setCommentLikes(List<CommentLike> commentLikes) {
-        this.commentLikes = commentLikes;
-    }
+//    public void setThisUserLiked(List<UserLike> thisUserLiked) {
+//        this.thisUserLiked = thisUserLiked;
+//    }
 
-    public List<UserLike> getThisUserLiked() {
-        return thisUserLiked;
-    }
+//    public void addLikeForThisUser(UserLike like) {
+//        userLikes.add(like);
+//        like.getId().setTargetUser(this);
+//    }
+//
+//    public void removeLikeFromThisUser(UserLike like) {
+//        userLikes.remove(like);
+//        like.getId().setTargetUser(null);
+//    }
 
-    public void setThisUserLiked(List<UserLike> thisUserLiked) {
-        this.thisUserLiked = thisUserLiked;
-    }
+//    public void addPhotoLike(PhotoLike like) {
+//        photoLikes.add(like);
+//        like.setAuthor(this);
+//    }
+//
+//    public void removePhotoLike(PhotoLike like) {
+//        photoLikes.remove(like);
+//        like.setAuthor(null);
+//    }
 
-    public void addLikeForThisUser(UserLike like) {
-        userLikes.add(like);
-        like.setTargetUser(this);
-    }
+//    public void addUserLike(UserLike like) {
+//        userLikes.add(like);
+//        like.getId().setAuthor(this);
+//    }
 
-    public void removeLikeFromThisUser(UserLike like) {
-        userLikes.remove(like);
-        like.setTargetUser(null);
-    }
+//    public void removeUserLike(UserLike like) {
+//        userLikes.remove(like);
+//        like.getId().setAuthor(null);
+//    }
 
-    public void addPhotoLike(PhotoLike like) {
-        photoLikes.add(like);
-        like.setAuthor(this);
-    }
-
-    public void removePhotoLike(PhotoLike like) {
-        photoLikes.remove(like);
-        like.setAuthor(null);
-    }
-
-    public void addUserLike(UserLike like) {
-        userLikes.add(like);
-        like.setAuthor(this);
-    }
-
-    public void removeUserLike(UserLike like) {
-        userLikes.remove(like);
-        like.setAuthor(null);
-    }
-
-    public void addCommentLike(CommentLike like) {
-        commentLikes.add(like);
-        like.setAuthor(this);
-    }
-
-    public void removeUserLike(CommentLike like) {
-        commentLikes.remove(like);
-        like.setAuthor(null);
-    }
+//    public void addCommentLike(CommentLike like) {
+//        commentLikes.add(like);
+//        like.setAuthor(this);
+//    }
+//
+//    public void removeUserLike(CommentLike like) {
+//        commentLikes.remove(like);
+//        like.setAuthor(null);
+//    }
 
     public void addComment(Comment comment) {
         comments.add(comment);

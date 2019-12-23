@@ -1,38 +1,46 @@
 package com.alevel.socialnetwork.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class CommentLikeId implements Serializable {
 
-    private long authorId;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
-    private long targetCommentId;
+    @ManyToOne
+    @JoinColumn(name = "target_comment_id")
+    private Comment targetComment;
+
 
     public CommentLikeId() {
     }
 
-    public CommentLikeId(long authorId, long targetCommentId) {
-        this.authorId = authorId;
-        this.targetCommentId = targetCommentId;
+    public CommentLikeId(User author, Comment targetComment) {
+        this.author = author;
+        this.targetComment = targetComment;
     }
 
-    public long getAuthorId() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public long getTargetCommentId() {
-        return targetCommentId;
+    public Comment getTargetComment() {
+        return targetComment;
     }
 
-    public void setTargetCommentId(long targetCommentId) {
-        this.targetCommentId = targetCommentId;
+    public void setTargetComment(Comment targetComment) {
+        this.targetComment = targetComment;
     }
 
     @Override
@@ -40,12 +48,12 @@ public class CommentLikeId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CommentLikeId that = (CommentLikeId) o;
-        return authorId == that.authorId &&
-                targetCommentId == that.targetCommentId;
+        return Objects.equals(author, that.author) &&
+                Objects.equals(targetComment, that.targetComment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, targetCommentId);
+        return Objects.hash(author, targetComment);
     }
 }

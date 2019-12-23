@@ -1,38 +1,45 @@
 package com.alevel.socialnetwork.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class UserLikeId implements Serializable {
 
-    private long authorId;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
-    private long targetUserId;
+    @ManyToOne
+    @JoinColumn(name = "target_user_id")
+    private User targetUser;
 
     public UserLikeId() {
     }
 
-    public UserLikeId(long authorId, long targetUserId) {
-        this.authorId = authorId;
-        this.targetUserId = targetUserId;
+    public UserLikeId(User author, User targetUser) {
+        this.author = author;
+        this.targetUser = targetUser;
     }
 
-    public long getAuthorId() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public long getTargetUserId() {
-        return targetUserId;
+    public User getTargetUser() {
+        return targetUser;
     }
 
-    public void setTargetUserId(long targetUserId) {
-        this.targetUserId = targetUserId;
+    public void setTargetUser(User targetUser) {
+        this.targetUser = targetUser;
     }
 
     @Override
@@ -40,12 +47,12 @@ public class UserLikeId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserLikeId that = (UserLikeId) o;
-        return authorId == that.authorId &&
-                targetUserId == that.targetUserId;
+        return Objects.equals(author, that.author) &&
+                Objects.equals(targetUser, that.targetUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, targetUserId);
+        return Objects.hash(author, targetUser);
     }
 }

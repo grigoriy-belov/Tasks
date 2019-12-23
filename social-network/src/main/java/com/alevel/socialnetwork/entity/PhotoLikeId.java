@@ -1,37 +1,45 @@
 package com.alevel.socialnetwork.entity;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
 public class PhotoLikeId implements Serializable {
 
-    private Long authorId;
-    private Long targetPhotoId;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "target_photo_id")
+    private Photo targetPhoto;
 
     public PhotoLikeId() {
     }
 
-    public PhotoLikeId(Long authorId, Long targetPhotoId) {
-        this.authorId = authorId;
-        this.targetPhotoId = targetPhotoId;
+    public PhotoLikeId(User author, Photo targetPhoto) {
+        this.author = author;
+        this.targetPhoto = targetPhoto;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public Long getTargetPhotoId() {
-        return targetPhotoId;
+    public Photo getTargetPhoto() {
+        return targetPhoto;
     }
 
-    public void setTargetPhotoId(Long targetPhotoId) {
-        this.targetPhotoId = targetPhotoId;
+    public void setTargetPhoto(Photo targetPhoto) {
+        this.targetPhoto = targetPhoto;
     }
 
     @Override
@@ -39,12 +47,13 @@ public class PhotoLikeId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PhotoLikeId that = (PhotoLikeId) o;
-        return Objects.equals(authorId, that.authorId) &&
-                Objects.equals(targetPhotoId, that.targetPhotoId);
+        return Objects.equals(author, that.author) &&
+                Objects.equals(targetPhoto, that.targetPhoto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorId, targetPhotoId);
+        return Objects.hash(author, targetPhoto);
     }
 }
+

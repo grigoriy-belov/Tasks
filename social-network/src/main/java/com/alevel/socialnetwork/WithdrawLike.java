@@ -12,9 +12,8 @@ public class WithdrawLike {
     private static final Logger log = LoggerFactory.getLogger(PopulateWithExampleData.class);
 
     public static void main(String[] args) {
-        long userId = 1l;
+        long userId = 3l;
         long targetId = 2l;
-        Class entity = PhotoLike.class;
 
         SessionFactory sessionFactory = HibernateSessionFactoryUtil.createSessionFactory();
         Session session = sessionFactory.openSession();
@@ -23,13 +22,13 @@ public class WithdrawLike {
             Transaction transaction = session.beginTransaction();
 
             User user = session.get(User.class, userId);
-
-
-            session.save(user);
+            User targetUser = session.get(User.class, targetId);
+            UserLike userLike = session.load(UserLike.class, new UserLikeId(user, targetUser));
+            session.remove(userLike);
 
             transaction.commit();
         } catch (Exception e) {
-            log.error("Error while populating db with example data", e);
+            log.error("Error while removing like from db", e);
             session.getTransaction().rollback();
         }
     }
