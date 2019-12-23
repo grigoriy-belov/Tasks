@@ -16,7 +16,7 @@ public class _Like {
     @Column(name = "id", updatable = false, nullable = false)
     protected long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
     private User author;
 

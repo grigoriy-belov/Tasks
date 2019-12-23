@@ -12,7 +12,7 @@ public class WithdrawLike {
     private static final Logger log = LoggerFactory.getLogger(PopulateWithExampleData.class);
 
     public static void main(String[] args) {
-        long userId = 1l;
+        long userId = 2l;
         long targetId = 2l;
         Class entity = PhotoLike.class;
 
@@ -23,27 +23,8 @@ public class WithdrawLike {
             Transaction transaction = session.beginTransaction();
 
             User user = session.get(User.class, userId);
-
-            if (entity == UserLike.class) {
-                for (UserLike like : user.getUserLikes()) {
-                    if (like.getId() == targetId) {
-                        user.removeUserLike(like);
-                    }
-                }
-            } else if (entity == PhotoLike.class) {
-                for (PhotoLike like : user.getPhotoLikes()) {
-                    if (like.getId() == targetId) {
-                        user.removePhotoLike(like);
-                    }
-                }
-            } else if (entity == Comment.class) {
-                for (CommentLike like : user.getCommentLikes()) {
-                    if (like.getId() == targetId) {
-                        user.removeCommentLike(like);
-                    }
-                }
-            }
-
+            UserLike userLike = new UserLike(user, session.get(User.class, 1L));
+            session.save(userLike);
             session.save(user);
 
             transaction.commit();
