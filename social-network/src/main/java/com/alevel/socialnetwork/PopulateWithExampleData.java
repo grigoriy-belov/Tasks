@@ -36,9 +36,9 @@ public class PopulateWithExampleData {
             session.save(photo2);
             session.save(photo3);
 
-            UserLike like1 = new UserLike(new UserLikeId(john, samantha));
-            UserLike like2 = new UserLike(new UserLikeId(samantha, john));
-            UserLike like3 = new UserLike(new UserLikeId(robert, samantha));
+            UserLike like1 = new UserLike(john, samantha);
+            UserLike like2 = new UserLike(samantha, john);
+            UserLike like3 = new UserLike(robert, samantha);
 
             session.save(like1);
             session.save(like2);
@@ -52,17 +52,17 @@ public class PopulateWithExampleData {
             session.save(comment2);
             session.save(comment3);
 
-            PhotoLike photoLike1 = new PhotoLike(new PhotoLikeId(john, photo2));
-            PhotoLike photoLike2 = new PhotoLike(new PhotoLikeId(samantha, photo1));
-            PhotoLike photoLike3 = new PhotoLike(new PhotoLikeId(robert, photo2));
+            PhotoLike photoLike1 = new PhotoLike(john, photo2);
+            PhotoLike photoLike2 = new PhotoLike(samantha, photo1);
+            PhotoLike photoLike3 = new PhotoLike(robert, photo2);
 
             session.save(photoLike1);
             session.save(photoLike2);
             session.save(photoLike3);
 
-            CommentLike commentLike1 = new CommentLike(new CommentLikeId(john, comment2));
-            CommentLike commentLike2 = new CommentLike(new CommentLikeId(samantha, comment1));
-            CommentLike commentLike3 = new CommentLike(new CommentLikeId(robert, comment2));
+            CommentLike commentLike1 = new CommentLike(john, comment2);
+            CommentLike commentLike2 = new CommentLike(samantha, comment1);
+            CommentLike commentLike3 = new CommentLike(robert, comment2);
 
             session.save(commentLike1);
             session.save(commentLike2);

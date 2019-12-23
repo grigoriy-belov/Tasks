@@ -26,8 +26,8 @@ public class Photo {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<PhotoLike> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "targetPhoto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PhotoLike> likes = new ArrayList<>();
 
     public Photo() {
     }
@@ -69,13 +69,13 @@ public class Photo {
         this.comments = comments;
     }
 
-//    public List<PhotoLike> getLikes() {
-//        return likes;
-//    }
+    public List<PhotoLike> getLikes() {
+        return likes;
+    }
 
-//    public void setLikes(List<PhotoLike> likes) {
-//        this.likes = likes;
-//    }
+    public void setLikes(List<PhotoLike> likes) {
+        this.likes = likes;
+    }
 
     public void addComment(Comment comment) {
         comments.add(comment);
@@ -87,13 +87,13 @@ public class Photo {
         comment.setPhoto(null);
     }
 
-//    public void addLike(PhotoLike like) {
-//        likes.add(like);
-//        like.setTargetPhoto(this);
-//    }
-//
-//    public void removeLike(PhotoLike like) {
-//        likes.remove(like);
-//        like.setTargetPhoto(null);
-//    }
+    public void addLike(PhotoLike like) {
+        likes.add(like);
+        like.setTargetPhoto(this);
+    }
+
+    public void removeLike(PhotoLike like) {
+        likes.remove(like);
+        like.setTargetPhoto(null);
+    }
 }
