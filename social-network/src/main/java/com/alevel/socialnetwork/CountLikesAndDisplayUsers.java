@@ -3,7 +3,7 @@ package com.alevel.socialnetwork;
 import com.alevel.socialnetwork.entity.Comment;
 import com.alevel.socialnetwork.entity.Photo;
 import com.alevel.socialnetwork.entity.User;
-import com.alevel.socialnetwork.entity._Like;
+import com.alevel.socialnetwork.entity.LikeEntity;
 import com.alevel.socialnetwork.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,6 +27,7 @@ public class CountLikesAndDisplayUsers {
 
         try (session; sessionFactory) {
             Transaction transaction = session.beginTransaction();
+
             Object entity = session.get(entityClass, entityId);
 
             List likes = null;
@@ -41,7 +42,7 @@ public class CountLikesAndDisplayUsers {
 
             log.info("Total number of likes: " + likes.size());
             for (Object like : likes) {
-                log.info("User '" + ((_Like) like).getAuthor().getName() + "' like it");
+                log.info("User '" + ((LikeEntity) like).getAuthor().getName() + "' like it");
             }
 
             transaction.commit();

@@ -22,7 +22,7 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<_Like> likes = new ArrayList<>();
+    private List<LikeEntity> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "targetUser",  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserLike> userLikes = new ArrayList<>();
@@ -66,11 +66,11 @@ public class User {
         this.comments = comments;
     }
 
-    public List<_Like> getLikes() {
+    public List<LikeEntity> getLikes() {
         return likes;
     }
 
-    public void setLikes(List<_Like> likes) {
+    public void setLikes(List<LikeEntity> likes) {
         this.likes = likes;
     }
 
@@ -82,12 +82,12 @@ public class User {
         this.userLikes = userLikes;
     }
 
-    public void addLike(_Like like) {
+    public void addLike(LikeEntity like) {
         likes.add(like);
         like.setAuthor(this);
     }
 
-    public void removeLike(_Like like) {
+    public void removeLike(LikeEntity like) {
         likes.remove(like);
         like.setAuthor(null);
     }

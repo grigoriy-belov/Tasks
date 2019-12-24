@@ -8,22 +8,22 @@ import javax.persistence.*;
  */
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-public class _Like {
+@Table(name = "likes")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class LikeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable = false, nullable = false)
-    protected long id;
+    private long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
 
-    _Like() {
+    public LikeEntity() {
     }
 
-    _Like(User author) {
+    public LikeEntity(User author) {
         this.author = author;
     }
 
