@@ -3,7 +3,10 @@ package com.alevel.socialnetwork.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "comment_likes")
+@Table(name = "comment_likes",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "target_comment_id"})
+        })
 public class CommentLike extends LikeEntity {
 
     @ManyToOne

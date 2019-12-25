@@ -3,7 +3,10 @@ package com.alevel.socialnetwork.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_likes")
+@Table(name = "user_likes",
+        uniqueConstraints = {
+            @UniqueConstraint(columnNames = {"user_id", "target_user_id"})
+        })
 public class UserLike extends LikeEntity {
 
     @ManyToOne

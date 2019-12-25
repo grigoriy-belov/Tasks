@@ -14,19 +14,28 @@ public class WithdrawLike {
     private static final Logger log = LoggerFactory.getLogger(PopulateWithExampleData.class);
 
     public static void main(String[] args) {
-        long userId = 2l;
-        long targetId = 2l;
-        Class entity = PhotoLike.class;
+        String likeType = args[0];
+        long userId = Long.parseLong(args[1]);
+        long targetId = Long.parseLong(args[2]);
 
         SessionFactory sessionFactory = HibernateSessionFactoryUtil.createSessionFactory();
         Session session = sessionFactory.openSession();
 
         try (sessionFactory; session) {
             Transaction transaction = session.beginTransaction();
+            LikeEntity like = null;
 
             User user = session.get(User.class, userId);
-            UserLike userLike = new UserLike(user, session.get(User.class, 1L));
-            session.save(userLike);
+
+            if (likeType.equals("User")) {
+                like = session.get(UserLike.class, targetId);
+            } else if (likeType.equals("Comment")) {
+                like = session.get(CommentLike.class, targetId);
+            } else if (likeType.equals("Photo")) {
+                like = session.get(PhotoLike.class, targetId);
+            }
+
+            user.removeLike(like);
             session.save(user);
 
             transaction.commit();

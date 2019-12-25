@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class CountLikesAndDisplayUsers {
@@ -40,7 +41,7 @@ public class CountLikesAndDisplayUsers {
                 likes = ((Comment) entity).getLikes();
             }
 
-            log.info("Total number of likes: " + likes.size());
+            log.info("Total number of likes: " + Objects.requireNonNull(likes).size());
             for (Object like : likes) {
                 log.info("User '" + ((LikeEntity) like).getAuthor().getName() + "' like it");
             }

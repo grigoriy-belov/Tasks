@@ -107,7 +107,7 @@ public class User {
         comment.setAuthor(this);
     }
 
-    public void removeLike(Comment comment) {
+    public void removeComment(Comment comment) {
         comments.remove(comment);
         comment.setAuthor(null);
     }
