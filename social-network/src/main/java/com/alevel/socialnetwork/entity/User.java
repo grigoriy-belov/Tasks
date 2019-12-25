@@ -22,16 +22,10 @@ public class User {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PhotoLike> photoLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CommentLike> commentLikes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserLike> userLikes = new ArrayList<>();
+    private List<LikeEntity> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "targetUser",  cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UserLike> thisUserLiked = new ArrayList<>();
+    private List<UserLike> userLikes = new ArrayList<>();
 
     public User() {
     }
@@ -72,6 +66,14 @@ public class User {
         this.comments = comments;
     }
 
+    public List<LikeEntity> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<LikeEntity> likes) {
+        this.likes = likes;
+    }
+
     public List<UserLike> getUserLikes() {
         return userLikes;
     }
@@ -80,68 +82,24 @@ public class User {
         this.userLikes = userLikes;
     }
 
-    public List<PhotoLike> getPhotoLikes() {
-        return photoLikes;
-    }
-
-    public void setPhotoLikes(List<PhotoLike> photoLikes) {
-        this.photoLikes = photoLikes;
-    }
-
-    public List<CommentLike> getCommentLikes() {
-        return commentLikes;
-    }
-
-    public void setCommentLikes(List<CommentLike> commentLikes) {
-        this.commentLikes = commentLikes;
-    }
-
-    public List<UserLike> getThisUserLiked() {
-        return thisUserLiked;
-    }
-
-    public void setThisUserLiked(List<UserLike> thisUserLiked) {
-        this.thisUserLiked = thisUserLiked;
-    }
-
-    public void addLikeForThisUser(UserLike like) {
-        userLikes.add(like);
-        like.setTargetUser(this);
-    }
-
-    public void removeLikeFromThisUser(UserLike like) {
-        userLikes.remove(like);
-        like.setTargetUser(null);
-    }
-
-    public void addPhotoLike(PhotoLike like) {
-        photoLikes.add(like);
+    public void addLike(LikeEntity like) {
+        likes.add(like);
         like.setAuthor(this);
     }
 
-    public void removePhotoLike(PhotoLike like) {
-        photoLikes.remove(like);
+    public void removeLike(LikeEntity like) {
+        likes.remove(like);
         like.setAuthor(null);
     }
 
     public void addUserLike(UserLike like) {
         userLikes.add(like);
-        like.setAuthor(this);
+        like.setTargetUser(this);
     }
 
     public void removeUserLike(UserLike like) {
         userLikes.remove(like);
-        like.setAuthor(null);
-    }
-
-    public void addCommentLike(CommentLike like) {
-        commentLikes.add(like);
-        like.setAuthor(this);
-    }
-
-    public void removeUserLike(CommentLike like) {
-        commentLikes.remove(like);
-        like.setAuthor(null);
+        like.setTargetUser(null);
     }
 
     public void addComment(Comment comment) {

@@ -1,6 +1,9 @@
 package com.alevel.socialnetwork;
 
-import com.alevel.socialnetwork.entity.*;
+import com.alevel.socialnetwork.entity.Comment;
+import com.alevel.socialnetwork.entity.Photo;
+import com.alevel.socialnetwork.entity.User;
+import com.alevel.socialnetwork.entity.LikeEntity;
 import com.alevel.socialnetwork.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,14 +12,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Objects;
 
 
 public class CountLikesAndDisplayUsers {
     private static final Logger log = LoggerFactory.getLogger(PopulateWithExampleData.class);
 
     public static void main(String[] args) {
-        long entityId = Long.parseLong(args[0]);
-        String entity = args[1];
+        long entityId = 2L;
+
+        Class entityClass = User.class;
 
         SessionFactory sessionFactory = HibernateSessionFactoryUtil.createSessionFactory();
         Session session = sessionFactory.openSession();
@@ -24,39 +29,26 @@ public class CountLikesAndDisplayUsers {
         try (session; sessionFactory) {
             Transaction transaction = session.beginTransaction();
 
-            switch (entity) {
-                case "User":
-                    User user = session.get(User.class, entityId);
-                    List<UserLike> userLikes = user.getThisUserLiked();
+            Object entity = session.get(entityClass, entityId);
 
-                    log.info("Total likes count: " + userLikes.size());
-                    for (UserLike userLike : userLikes) {
-                        log.info("User '" + userLike.getAuthor().getName() + "' like it");
-                    }
-                    break;
-                case "Photo":
-                    Photo photo = session.get(Photo.class, entityId);
-                    List<PhotoLike> photoLikes = photo.getLikes();
+            List likes = null;
 
-                    log.info("Total likes count: " + photoLikes.size());
-                    for (PhotoLike photoLike : photoLikes) {
-                        log.info("User '" + photoLike.getAuthor().getName() + "' like it");
-                    }
-                    break;
-                case "Comment":
-                    Comment comment = session.get(Comment.class, entityId);
-                    List<CommentLike> commentLikes = comment.getLikes();
+            if (entity instanceof User) {
+                likes = ((User) entity).getUserLikes();
+            } else if (entity instanceof Photo) {
+                likes = ((Photo) entity).getLikes();
+            } else if (entity instanceof Comment) {
+                likes = ((Comment) entity).getLikes();
+            }
 
-                    log.info("Total likes count: " + commentLikes.size());
-                    for (CommentLike commentLike : commentLikes) {
-                        log.info("User '" + commentLike.getAuthor().getName() + "' like it");
-                    }
-                    break;
+            log.info("Total number of likes: " + Objects.requireNonNull(likes).size());
+            for (Object like : likes) {
+                log.info("User '" + ((LikeEntity) like).getAuthor().getName() + "' like it");
             }
 
             transaction.commit();
         } catch (Exception e) {
-            log.error("Error while getting likes", e);
+            log.error("Error while populating db with example data", e);
             session.getTransaction().rollback();
         }
     }

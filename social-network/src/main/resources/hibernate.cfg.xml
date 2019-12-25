@@ -14,6 +14,7 @@
         <mapping class="com.alevel.socialnetwork.entity.Comment"/>
         <mapping class="com.alevel.socialnetwork.entity.User"/>
         <mapping class="com.alevel.socialnetwork.entity.Photo"/>
+        <mapping class="com.alevel.socialnetwork.entity.LikeEntity"/>
         <mapping class="com.alevel.socialnetwork.entity.PhotoLike"/>
         <mapping class="com.alevel.socialnetwork.entity.CommentLike"/>
         <mapping class="com.alevel.socialnetwork.entity.UserLike"/>

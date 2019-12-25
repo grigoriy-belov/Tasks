@@ -1,19 +1,14 @@
 package com.alevel.socialnetwork.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
-@Table(name = "photo_likes")
-public class PhotoLike implements Serializable {
+@Table(name = "photo_likes",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "target_photo_id"})
+        })
+public class PhotoLike extends LikeEntity {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
-
-    @Id
     @ManyToOne
     @JoinColumn(name = "target_photo_id")
     private Photo targetPhoto;
@@ -22,16 +17,8 @@ public class PhotoLike implements Serializable {
     }
 
     public PhotoLike(User author, Photo targetPhoto) {
-        this.author = author;
+        super(author);
         this.targetPhoto = targetPhoto;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
     }
 
     public Photo getTargetPhoto() {
@@ -42,17 +29,4 @@ public class PhotoLike implements Serializable {
         this.targetPhoto = targetPhoto;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PhotoLike photoLike = (PhotoLike) o;
-        return Objects.equals(author, photoLike.author) &&
-                Objects.equals(targetPhoto, photoLike.targetPhoto);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(author, targetPhoto);
-    }
 }
