@@ -15,18 +15,19 @@ public class WritingInputOnUpdateTask implements Runnable {
 
     @Override
     public void run() {
-        while (!input.getText().equals("quit")) {
-            try {
+        try {
+            while (!input.getText().equals("quit")) {
                 if (input.isUpdated()) {
                     Files.writeString(Paths.get("misc/files/output.txt"), input.getText(), StandardOpenOption.WRITE,
                             StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.CREATE);
+                    input.setPreviousText(input.getText());
                 }
                 Thread.sleep(1000);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                throw new RuntimeException();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            throw new RuntimeException();
         }
     }
 }

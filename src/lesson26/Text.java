@@ -11,15 +11,19 @@ public class Text {
     }
 
     public void setText(String text) {
-        previousText = text;
+        previousText = this.text;
         this.text = text;
     }
 
     public boolean isUpdated() {
-        return text.equals(previousText);
+        return !text.equals(previousText);
     }
 
     public String getText() {
         return text;
+    }
+
+    public void setPreviousText(String previousText) {
+        this.previousText = previousText;
     }
 }
