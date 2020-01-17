@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
 
-@WebServlet(urlPatterns = "")
+@WebServlet(urlPatterns = "/tossCoin")
 public class TossCoinService extends HttpServlet {
 
     private String responseTemplate;
